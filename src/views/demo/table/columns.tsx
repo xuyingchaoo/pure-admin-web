@@ -2,13 +2,26 @@
  * @Author: xuyingchao
  * @Date: 2023-01-10 13:49:58
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-10 14:21:20
+ * @LastEditTime: 2023-01-16 16:54:54
  * @Descripttion:
  */
-import { reactive } from "vue";
-import type { PaginationProps } from "@pureadmin/table";
+import {
+  getTableData,
+  onCurrentChange,
+  onSizeChange,
+  mixinViewModuleOptions,
+  pagination,
+  dataList,
+  loading,
+  doDelete
+} from "@/mixins/data-list";
 
 export function useColumns() {
+  // 配置接口地址
+  mixinViewModuleOptions.getDataListURL = "sys/user/page";
+  mixinViewModuleOptions.deleteURL = "sys/user/delete";
+
+  /** 表格列 */
   const columns: TableColumnList = [
     {
       label: "姓名",
@@ -32,18 +45,40 @@ export function useColumns() {
       slot: "operation"
     }
   ];
-  /** 分页配置 */
-  const pagination = reactive<PaginationProps>({
-    pageSize: 10,
-    currentPage: 1,
-    pageSizes: [10, 15, 20],
-    total: 0,
-    align: "right",
-    background: true,
-    small: false
+  const searchform = reactive({
+    username: "",
+    sex: "",
+    mobile: ""
+  });
+  // 搜索
+  function onSearch() {
+    getTableData(searchform);
+  }
+  // 重置
+  const resetForm = searchFormRef => {
+    if (!searchFormRef) return;
+    searchFormRef.resetFields();
+    onSearch();
+  };
+  // 删除
+  function handleDelete(row) {
+    console.log(row);
+    doDelete([row.id]);
+  }
+
+  onMounted(() => {
+    getTableData(searchform);
   });
   return {
+    onCurrentChange,
+    onSizeChange,
+    resetForm,
+    onSearch,
+    handleDelete,
+    searchform,
     columns,
-    pagination
+    pagination,
+    dataList,
+    loading
   };
 }

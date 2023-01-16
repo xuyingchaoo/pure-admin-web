@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-09 15:06:15
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-10 10:56:23
+ * @LastEditTime: 2023-01-16 16:22:11
  * @Descripttion:
  */
 import App from "./App.vue";
@@ -42,13 +42,19 @@ import {
   IconifyIconOffline,
   IconifyIconOnline,
   FontIcon
-} from "./components/ReIcon";
+} from "./components/Re/ReIcon";
+
+import { PureTableBar } from "@/components/Re/RePureTableBar";
+
 app.component("IconifyIconOffline", IconifyIconOffline);
 app.component("IconifyIconOnline", IconifyIconOnline);
 app.component("FontIcon", FontIcon);
 
+// 全局注册
+app.component("PureTableBar", PureTableBar);
+
 // 全局注册按钮级别权限组件
-import { Auth } from "@/components/ReAuth";
+import { Auth } from "@/components/Re/ReAuth";
 app.component("Auth", Auth);
 
 getServerConfig(app).then(async config => {

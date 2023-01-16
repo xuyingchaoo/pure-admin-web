@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-10 09:58:55
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-10 15:10:52
+ * @LastEditTime: 2023-01-16 15:16:15
  * @Descripttion: 自定义demo静态路由
  */
 export default {
@@ -28,6 +28,14 @@ export default {
       component: () => import("@/views/demo/table/index.vue"),
       meta: {
         title: "DemoTable"
+      }
+    },
+    {
+      path: "/demo/icon",
+      name: "DemoIcon",
+      component: () => import("@/views/demo/icon/index.vue"),
+      meta: {
+        title: "DemoIcon"
       }
     },
     {

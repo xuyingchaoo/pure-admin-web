@@ -3,7 +3,7 @@ import path from "path";
 import { getConfig } from "@/config";
 import { childrenType } from "../../types";
 import { useNav } from "@/layout/hooks/useNav";
-import { useRenderIcon } from "@/components/ReIcon/src/hooks";
+import { useRenderIcon } from "@/components/Re/ReIcon/src/hooks";
 import { ref, toRaw, PropType, nextTick, computed, CSSProperties } from "vue";
 
 import ArrowUp from "@iconify-icons/ep/arrow-up";

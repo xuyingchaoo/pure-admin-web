@@ -1,7 +1,14 @@
+<!--
+ * @Author: xuyingchao
+ * @Date: 2023-01-09 15:06:15
+ * @LastEditors: xuyingchao
+ * @LastEditTime: 2023-01-16 13:16:07
+ * @Descripttion: 
+-->
 <script setup lang="ts">
 import { computed } from "vue";
 import { useEpThemeStoreHook } from "@/store/modules/epTheme";
-import { useRenderIcon } from "@/components/ReIcon/src/hooks";
+import { useRenderIcon } from "@/components/Re/ReIcon/src/hooks";
 import enterOutlined from "@/assets/svg/enter_outlined.svg?component";
 import Bookmark2Line from "@iconify-icons/ri/bookmark-2-line";
 

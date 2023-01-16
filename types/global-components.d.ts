@@ -6,7 +6,7 @@ declare module "vue" {
     IconifyIconOffline: typeof import("../src/components/ReIcon")["IconifyIconOffline"];
     IconifyIconOnline: typeof import("../src/components/ReIcon")["IconifyIconOnline"];
     FontIcon: typeof import("../src/components/ReIcon")["FontIcon"];
-    Auth: typeof import("../src/components/ReAuth")["Auth"];
+    Auth: typeof import("../src/components/Re/ReAuth")["Auth"];
   }
 }
 

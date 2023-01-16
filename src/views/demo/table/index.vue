@@ -2,18 +2,12 @@
  * @Author: xuyingchao
  * @Date: 2023-01-09 16:09:15
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-11 13:05:24
+ * @LastEditTime: 2023-01-16 16:57:23
  * @Descripttion: 
 -->
 <script setup lang="ts">
-import { getUserList } from "@/api/demo";
-import { ref, onMounted, reactive } from "vue";
-// import type { LoadingConfig, Align } from "@pureadmin/table";
-import { useColumns } from "./columns";
-import { useRenderIcon } from "@/components/ReIcon/src/hooks";
-import { PureTableBar } from "@/components/RePureTableBar";
+import { useRenderIcon } from "@/components/Re/ReIcon/src/hooks";
 import { useMultiTagsStoreHook } from "@/store/modules/multiTags";
-import { useRouter } from "vue-router";
 // 图标
 import Search from "@iconify-icons/ep/search";
 import Refresh from "@iconify-icons/ep/refresh";
@@ -24,52 +18,24 @@ import Role from "@iconify-icons/ri/admin-line";
 import Password from "@iconify-icons/ri/lock-password-line";
 import AddFill from "@iconify-icons/ri/add-circle-line";
 
-const { columns, pagination } = useColumns();
+import { useColumns } from "./columns";
 
-const dataList = ref([]);
-const loading = ref(true);
-const searchform = reactive({
-  username: "",
-  sex: "",
-  mobile: ""
-});
-const router = useRouter();
+const {
+  columns,
+  searchform,
+  onCurrentChange,
+  onSizeChange,
+  resetForm,
+  onSearch,
+  handleDelete,
+  pagination,
+  dataList,
+  loading
+} = useColumns();
+
 const searchFormRef = ref();
 
-// 获取表格list
-function getTableList(page = 1) {
-  loading.value = true;
-  const params = {
-    page,
-    limit: pagination.pageSize,
-    ...searchform
-  };
-  getUserList(params).then(res => {
-    if (res.code == 0) {
-      const { data } = res;
-      dataList.value = data.records;
-      pagination.total = data.total;
-      loading.value = false;
-      console.log(dataList);
-    }
-  });
-}
-// 分页修改
-function onCurrentChange(page) {
-  getTableList(page);
-}
-// 分页条数修改
-function onSizeChange(e) {
-  console.log(e);
-  pagination.pageSize = e;
-  getTableList(pagination.currentPage);
-}
-// 搜索
-function onSearch() {
-  getTableList();
-}
-// 重置
-function resetForm() {}
+const router = useRouter();
 
 // 新增
 function handleAdd() {
@@ -86,9 +52,6 @@ function handleAdd() {
   // 路由跳转
   router.push({ name: "人员新增", query: { id: 1 } });
 }
-onMounted(() => {
-  getTableList();
-});
 </script>
 <template>
   <div>
@@ -96,17 +59,17 @@ onMounted(() => {
       ref="searchFormRef"
       :inline="true"
       :model="searchform"
-      class="bg-bg_color w-[99/100] pl-8 pt-4"
+      class="bg-bg_color w-[99/100] pl-4 pt-4"
     >
-      <el-form-item label="人员姓名：" prop="username">
+      <el-form-item prop="username">
         <el-input
           v-model="searchform.username"
           placeholder="请输入人员姓名"
           clearable
-          class="!w-[200px]"
+          class="!w-[180px]"
         />
       </el-form-item>
-      <el-form-item label="手机号：" prop="mobile">
+      <el-form-item prop="mobile">
         <el-input
           v-model="searchform.mobile"
           placeholder="请输入手机号"
@@ -114,7 +77,7 @@ onMounted(() => {
           class="!w-[180px]"
         />
       </el-form-item>
-      <el-form-item label="性别：" prop="sex">
+      <el-form-item prop="sex">
         <el-select
           v-model="searchform.sex"
           placeholder="请选择性别"
@@ -175,7 +138,7 @@ onMounted(() => {
               @click="handleUpdate(row)"
               >修改
             </el-button>
-            <el-popconfirm title="是否确认删除?">
+            <el-popconfirm title="是否确认删除?" @confirm="handleDelete(row)">
               <template #reference>
                 <el-button
                   class="reset-margin"
@@ -183,7 +146,6 @@ onMounted(() => {
                   type="primary"
                   :size="size"
                   :icon="useRenderIcon(Delete)"
-                  @click="handleDelete(row)"
                 >
                   删除
                 </el-button>
