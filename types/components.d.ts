@@ -38,8 +38,10 @@ declare module '@vue/runtime-core' {
     ElTabs: typeof import('element-plus/es')['ElTabs']
     ElTag: typeof import('element-plus/es')['ElTag']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
+    RoleSelect: typeof import('./../src/components/Select/RoleSelect/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Select: typeof import('./../src/components/Select/index.vue')['default']
     Test: typeof import('./../src/components/Test/index.vue')['default']
   }
   export interface ComponentCustomProperties {
