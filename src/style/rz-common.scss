@@ -1,0 +1,43 @@
+// 头部搜索form
+.rz-search-form{
+  display: flex;
+  .el-form-item{
+
+  }
+  .search-form-btn{
+    width:220px;
+  }
+}
+// form表单三列布局
+.rz-form{
+  padding-bottom: 100px;
+}
+.rz-form-3{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  .el-form-item{
+    width: 33.33%;
+    align-items: center;
+    padding-right: 20px;
+    .el-input{
+      width:100%;
+    }
+    .el-form-item__content>div{
+      width: 100%;
+    }
+    .el-select{
+      width: 100%;
+    }
+  }
+}
+// form表单底部按钮
+.btn-wrapper{
+  position: absolute;
+  bottom: 0;
+  background: white;
+  width: calc(100% - 40px);
+  height: 100px;
+  display: flex;
+  align-items: center;
+}
