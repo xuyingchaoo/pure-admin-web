@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-09 16:09:15
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-16 16:57:23
+ * @LastEditTime: 2023-01-19 13:16:26
  * @Descripttion: 
 -->
 <script setup lang="ts">
@@ -54,7 +54,9 @@ function handleAdd() {
 }
 </script>
 <template>
-  <div>
+  <el-card>
+    <!-- <RzLayout>
+    <template #content> -->
     <el-form
       ref="searchFormRef"
       :inline="true"
@@ -191,5 +193,7 @@ function handleAdd() {
         </pure-table>
       </template>
     </PureTableBar>
-  </div>
+    <!-- </template>
+  </RzLayout> -->
+  </el-card>
 </template>

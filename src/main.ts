@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-09 15:06:15
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-16 16:22:11
+ * @LastEditTime: 2023-01-19 13:15:19
  * @Descripttion:
  */
 import App from "./App.vue";
@@ -49,6 +49,9 @@ import { PureTableBar } from "@/components/Re/RePureTableBar";
 app.component("IconifyIconOffline", IconifyIconOffline);
 app.component("IconifyIconOnline", IconifyIconOnline);
 app.component("FontIcon", FontIcon);
+
+// import RzLayout from "@/layout/RzLayout.vue";
+// app.component("RzLayout", RzLayout);
 
 // 全局注册
 app.component("PureTableBar", PureTableBar);
