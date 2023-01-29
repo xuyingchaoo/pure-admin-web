@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-05 14:40:55
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-11 13:06:05
+ * @LastEditTime: 2023-01-29 14:21:47
  * @Descripttion:
  */
 import Cookies from "js-cookie";
@@ -89,7 +89,6 @@ export function setTokenNew(data) {
     }
     if (token) {
       getUserInfo().then(res => {
-        console.log(res);
         if (res.code == 0) {
           const { username } = res.data;
           setSessionKey(username, ["admin"]);

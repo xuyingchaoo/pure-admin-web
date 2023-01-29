@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-10 13:49:58
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-17 13:24:29
+ * @LastEditTime: 2023-01-29 17:30:15
  * @Descripttion:
  */
 import {
@@ -13,14 +13,11 @@ import {
   pagination,
   dataList,
   loading,
-  doDelete
+  handleDelete,
+  resetForm,
+  handleExportOut
 } from "@/mixins/data-list";
-
 export function useColumns() {
-  // 配置接口地址
-  mixinViewModuleOptions.getDataListURL = "sys/user/page";
-  mixinViewModuleOptions.deleteURL = "sys/user/delete";
-
   /** 表格列 */
   const columns: TableColumnList = [
     {
@@ -45,29 +42,25 @@ export function useColumns() {
       slot: "operation"
     }
   ];
-  const searchform = reactive({
+  const searchForm = reactive({
     username: "",
     sex: "",
-    mobile: ""
+    mobile: "",
+    orderField: "create_date",
+    order: "desc"
   });
+  // 配置接口地址
+  mixinViewModuleOptions.getDataListURL = "sys/user/page";
+  mixinViewModuleOptions.deleteURL = "sys/user/delete";
+  mixinViewModuleOptions.exportURL = "sys/user/export";
+  mixinViewModuleOptions.searchForm = searchForm;
   // 搜索
   function onSearch() {
-    getTableData(searchform);
-  }
-  // 重置
-  const resetForm = searchFormRef => {
-    if (!searchFormRef) return;
-    searchFormRef.resetFields();
-    onSearch();
-  };
-  // 删除
-  function handleDelete(row) {
-    console.log(row);
-    doDelete([row.id]);
+    getTableData(searchForm);
   }
 
   onMounted(() => {
-    getTableData(searchform);
+    getTableData(searchForm);
   });
   return {
     onCurrentChange,
@@ -75,7 +68,8 @@ export function useColumns() {
     resetForm,
     onSearch,
     handleDelete,
-    searchform,
+    handleExportOut,
+    searchForm,
     columns,
     pagination,
     dataList,

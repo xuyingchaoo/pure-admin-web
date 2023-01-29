@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-19 09:31:44
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-19 14:42:24
+ * @LastEditTime: 2023-01-29 11:29:16
  * @Descripttion: 
 -->
 <script setup lang="ts">
@@ -16,7 +16,9 @@ const props = defineProps({
 
 <template>
   <div :class="[type == 'list' ? 'rz-layout-list' : '', 'rz-layout']">
-    <slot name="content" />
+    <el-scrollbar>
+      <slot name="content" />
+    </el-scrollbar>
   </div>
 </template>
 <style scoped>

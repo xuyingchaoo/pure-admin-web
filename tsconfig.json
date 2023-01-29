@@ -5,6 +5,7 @@
     "moduleResolution": "Node",
     "strict": false,
     "jsx": "preserve",
+    "noUnusedParameters":false,
     "importHelpers": true,
     "experimentalDecorators": true,
     "strictFunctionTypes": false,

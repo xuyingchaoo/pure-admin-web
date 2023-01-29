@@ -2,28 +2,51 @@
  * @Author: xuyingchao
  * @Date: 2023-01-09 16:09:15
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-19 14:45:33
+ * @LastEditTime: 2023-01-29 17:29:09
  * @Descripttion: 
 -->
 <script setup lang="ts">
-import { useForm } from "./index";
-const { formData, rules } = useForm();
-
+// import { useForm } from "./index";
+import { doAddUser, doEditUser } from "@/api/demo";
+import { message } from "@/utils/message";
+import { formData, rules, initDetails, dataLoading, handleForm } from "./index";
+import { useCommon } from "@/utils/rzCommon";
+const { handleCloseTag } = useCommon();
 const formRef = ref();
+// 提交表单
 async function handleSubmit(formRef) {
-  console.log(formData);
+  console.log("formData", formData);
   if (!formRef) return;
-  await formRef.validate((valid, fields) => {
+  await formRef.validate(valid => {
     if (valid) {
-      console.log("submit!");
-    } else {
-      console.log("error submit!", fields);
+      const form = handleForm(formData);
+      dataLoading.value = true;
+      const handleFuntion = form.id ? doEditUser : doAddUser;
+      handleFuntion(form).then(res => {
+        if (res.code == 0) {
+          message("操作成功！", {
+            type: "success"
+          });
+          // 关闭标签
+          handleCloseTag("/demo/form");
+        } else {
+          message(res.msg, {
+            type: "error"
+          });
+        }
+        dataLoading.value = false;
+      });
     }
   });
 }
+onMounted(() => {
+  initDetails().then(() => {
+    console.log("over");
+  });
+});
 </script>
 <template>
-  <el-card>
+  <el-card v-loading="dataLoading">
     <rz-layout>
       <template #content>
         <rz-title title="基本信息" />
@@ -49,15 +72,24 @@ async function handleSubmit(formRef) {
           <el-form-item label="联系方式" prop="mobile">
             <el-input v-model="formData.mobile" placeholder="请输入联系方式" />
           </el-form-item>
-          <el-form-item label="角色" prop="belong">
+          <el-form-item label="角色" prop="roleIdList">
             <role-select
               placeholder="请选择角色"
-              v-model:roleValue="formData.belong"
+              v-model:roleValue="formData.roleIdList"
+            />
+          </el-form-item>
+          <el-form-item label="头像" prop="avatarUrl">
+            <rz-upload
+              v-model:fileListDefault="formData.avatarUrl"
+              :limit="1"
+              accept="image/*"
+              tip="注：只支持JPG、JPEG、PNG等图片格式"
             />
           </el-form-item>
         </el-form>
+        <rz-title title="角色权限" />
         <div class="btn-wrapper">
-          <el-button>取消</el-button>
+          <!-- <el-button>取消</el-button> -->
           <el-button type="primary" @click="handleSubmit(formRef)"
             >提交</el-button
           >

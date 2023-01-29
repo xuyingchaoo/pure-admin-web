@@ -2,12 +2,12 @@
  * @Author: xuyingchao
  * @Date: 2023-01-09 16:09:15
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-19 14:48:42
+ * @LastEditTime: 2023-01-29 17:30:10
  * @Descripttion: 
 -->
 <script setup lang="ts">
 import { useRenderIcon } from "@/components/Re/ReIcon/src/hooks";
-import { useMultiTagsStoreHook } from "@/store/modules/multiTags";
+// import { useCommon } from "@/utils/rzCommon";
 // 图标
 import Search from "@iconify-icons/ep/search";
 import Refresh from "@iconify-icons/ep/refresh";
@@ -17,40 +17,46 @@ import More from "@iconify-icons/ep/more-filled";
 import Role from "@iconify-icons/ri/admin-line";
 import Password from "@iconify-icons/ri/lock-password-line";
 import AddFill from "@iconify-icons/ri/add-circle-line";
-
+import Filter from "@iconify-icons/ep/filter";
+import Download from "@iconify-icons/ep/download";
 import { useColumns } from "./columns";
-
+import { useCommon } from "@/utils/rzCommon";
+const { handleRouter } = useCommon();
 const {
   columns,
-  searchform,
+  searchForm,
   onCurrentChange,
   onSizeChange,
   resetForm,
   onSearch,
+  handleExportOut,
   handleDelete,
   pagination,
   dataList,
   loading
 } = useColumns();
 
+// 表单实例
 const searchFormRef = ref();
+const drawerFormRef = ref();
+// 抽屉显隐
+const showDrawer = ref(false);
 
-const router = useRouter();
-
+// 控制侧边搜索弹窗显隐
+function handleDrawer() {
+  showDrawer.value = true;
+}
 // 新增
-function handleAdd() {
-  useMultiTagsStoreHook().handleTags("push", {
-    path: `/demo/table/edit`,
-    name: "人员新增",
-    query: { id: 1 },
-    meta: {
-      title: "人员新增",
-      // 最大打开标签数
-      dynamicLevel: 3
-    }
+function handleEdit(row) {
+  let query = {};
+  if (row) {
+    query = { id: row.id };
+  }
+  handleRouter({
+    path: "/demo/form",
+    name: "DemoForm",
+    query
   });
-  // 路由跳转
-  router.push({ name: "人员新增", query: { id: 1 } });
 }
 </script>
 <template>
@@ -61,41 +67,37 @@ function handleAdd() {
           <el-form
             ref="searchFormRef"
             :inline="true"
-            :model="searchform"
-            class="rz-search-form pl-4 pt-4"
+            :model="searchForm"
+            class="rz-search-form pl-4 pt-4 w-[99/100]"
           >
             <el-form-item prop="username">
               <el-input
-                v-model="searchform.username"
+                v-model="searchForm.username"
                 placeholder="请输入人员姓名"
                 clearable
-              />
-            </el-form-item>
-            <el-form-item prop="username">
-              <el-input
-                v-model="searchform.username"
-                placeholder="请输入人员姓名"
-                clearable
+                class="!w-[160px]"
               />
             </el-form-item>
             <el-form-item prop="mobile">
               <el-input
-                v-model="searchform.mobile"
+                v-model="searchForm.mobile"
                 placeholder="请输入手机号"
                 clearable
+                class="!w-[160px]"
               />
             </el-form-item>
             <el-form-item prop="sex">
               <el-select
-                v-model="searchform.sex"
+                v-model="searchForm.sex"
                 placeholder="请选择性别"
                 clearable
+                class="!w-[160px]"
               >
                 <el-option label="男" value="1" />
                 <el-option label="女" value="2" />
               </el-select>
             </el-form-item>
-            <el-form-item class="search-form-btn">
+            <el-form-item class="search-form-btn !w-[270px] min-w-max">
               <el-button
                 type="primary"
                 :icon="useRenderIcon(Search)"
@@ -110,6 +112,9 @@ function handleAdd() {
               >
                 重置
               </el-button>
+              <el-button :icon="useRenderIcon(Filter)" @click="handleDrawer">
+                筛选
+              </el-button>
             </el-form-item>
           </el-form>
         </el-card>
@@ -119,9 +124,16 @@ function handleAdd() {
               <el-button
                 type="primary"
                 :icon="useRenderIcon(AddFill)"
-                @click="handleAdd"
+                @click="handleEdit"
               >
-                新增用户
+                新增
+              </el-button>
+              <el-button
+                type="primary"
+                :icon="useRenderIcon(Download)"
+                @click="handleExportOut()"
+              >
+                导出
               </el-button>
             </template>
             <template v-slot="{ size }">
@@ -141,10 +153,10 @@ function handleAdd() {
               >
                 <template #operation="{ row }">
                   <el-button
+                    @click="handleEdit(row)"
                     link
                     type="primary"
                     :icon="useRenderIcon(EditPen)"
-                    @click="handleUpdate(row)"
                     >修改
                   </el-button>
                   <el-popconfirm
@@ -169,14 +181,12 @@ function handleAdd() {
                       link
                       type="primary"
                       :size="size"
-                      @click="handleUpdate(row)"
                       :icon="useRenderIcon(More)"
                     />
                     <template #dropdown>
                       <el-dropdown-menu>
                         <el-dropdown-item>
                           <el-button
-                            :class="buttonClass"
                             link
                             type="primary"
                             :size="size"
@@ -187,7 +197,6 @@ function handleAdd() {
                         </el-dropdown-item>
                         <el-dropdown-item>
                           <el-button
-                            :class="buttonClass"
                             link
                             type="primary"
                             :size="size"
@@ -204,6 +213,45 @@ function handleAdd() {
             </template>
           </PureTableBar>
         </el-card>
+        <rz-drawer
+          v-model:show="showDrawer"
+          @search="onSearch"
+          @reset="resetForm(drawerFormRef)"
+        >
+          <template #searchForm>
+            <el-form
+              ref="drawerFormRef"
+              :inline="true"
+              :model="searchForm"
+              class="rz-drawer-form"
+            >
+              <el-form-item prop="username">
+                <el-input
+                  v-model="searchForm.username"
+                  placeholder="请输入人员姓名"
+                  clearable
+                />
+              </el-form-item>
+              <el-form-item prop="mobile">
+                <el-input
+                  v-model="searchForm.mobile"
+                  placeholder="请输入手机号"
+                  clearable
+                />
+              </el-form-item>
+              <el-form-item prop="sex">
+                <el-select
+                  v-model="searchForm.sex"
+                  placeholder="请选择性别"
+                  clearable
+                >
+                  <el-option label="男" value="1" />
+                  <el-option label="女" value="2" />
+                </el-select>
+              </el-form-item>
+            </el-form>
+          </template>
+        </rz-drawer>
       </template>
     </rz-layout>
   </div>

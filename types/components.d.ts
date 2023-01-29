@@ -41,7 +41,9 @@ declare module '@vue/runtime-core' {
     RoleSelect: typeof import('./../src/components/Select/RoleSelect/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    RzDrawer: typeof import('./../src/components/RzCommon/RzDrawer/index.vue')['default']
     RzTitle: typeof import('./../src/components/RzCommon/RzTitle/index.vue')['default']
+    RzUpload: typeof import('./../src/components/RzCommon/RzUpload/index.vue')['default']
     Select: typeof import('./../src/components/Select/index.vue')['default']
     Test: typeof import('./../src/components/Test/index.vue')['default']
   }
