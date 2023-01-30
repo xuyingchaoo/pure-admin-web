@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-09 16:09:15
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-29 17:29:09
+ * @LastEditTime: 2023-01-30 13:24:04
  * @Descripttion: 
 -->
 <script setup lang="ts">
@@ -40,14 +40,12 @@ async function handleSubmit(formRef) {
   });
 }
 onMounted(() => {
-  initDetails().then(() => {
-    console.log("over");
-  });
+  initDetails();
 });
 </script>
 <template>
   <el-card v-loading="dataLoading">
-    <rz-layout>
+    <rz-layout :btnShow="true" currentPath="/demo/form">
       <template #content>
         <rz-title title="基本信息" />
         <el-form
@@ -87,13 +85,11 @@ onMounted(() => {
             />
           </el-form-item>
         </el-form>
-        <rz-title title="角色权限" />
-        <div class="btn-wrapper">
-          <!-- <el-button>取消</el-button> -->
-          <el-button type="primary" @click="handleSubmit(formRef)"
-            >提交</el-button
-          >
-        </div>
+      </template>
+      <template #btn>
+        <el-button type="primary" @click="handleSubmit(formRef)">
+          提交
+        </el-button>
       </template>
     </rz-layout>
   </el-card>

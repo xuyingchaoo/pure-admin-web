@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-28 14:35:21
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-29 16:11:03
+ * @LastEditTime: 2023-01-30 09:14:31
  * @Descripttion: 
 -->
 <script setup lang="ts">
@@ -39,25 +39,19 @@ const props = defineProps({
     type: Array
   }
 });
-let fileList = [];
+const fileList = ref([]);
+onMounted(() => {
+  console.log(props.fileListDefault);
+  setTimeout(() => {
+    fileList.value = props.fileListDefault;
+  }, 500);
+});
 
 const accessToken = getToken().accessToken;
 const uploadUrl = baseUrlApi(`oss/upload?token=${accessToken}`); // 上传地址
 const dialogVisible = ref(false); // 预览弹窗显隐
 const dialogImageUrl = ref(""); // 预览图片地址
 const emit = defineEmits(["update:fileListDefault"]);
-// 编辑时候赋值，通过监听fileListDefault，给fileList赋值
-// watch(
-//   () => props.fileListDefault,
-//   newValue => {
-//     console.log("newValue", newValue);
-//     // const _fileList = [];
-//     // newValue.forEach(item => {
-//     //   _fileList.push({ url: item });
-//     // });
-//     // fileList = _fileList;
-//   }
-// );
 // 预览图片
 function handlePictureCardPreview(uploadFile) {
   dialogImageUrl.value = uploadFile.url!;
@@ -65,21 +59,21 @@ function handlePictureCardPreview(uploadFile) {
 }
 // 删除
 function handleRemove(file) {
-  fileList = fileList.filter(item => item.uid != file.uid);
+  fileList.value = fileList.value.filter(item => item.uid != file.uid);
   refreshData();
 }
 // 接口上传--上传成功
 function uploadFileSuccess(response, file, list) {
-  fileList = list;
-  fileList.forEach((item, i) => {
+  fileList.value = list;
+  fileList.value.forEach((item, i) => {
     if (item.uid == file.uid) {
-      fileList[i].url = response.data;
+      fileList.value[i].url = response.data;
     }
   });
   refreshData();
 }
 function refreshData() {
-  emit("update:fileListDefault", fileList);
+  emit("update:fileListDefault", fileList.value);
 }
 // 上传文件之前校验格式和大小
 function uploadBefore(file) {

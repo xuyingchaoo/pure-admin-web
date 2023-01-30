@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-10 13:49:58
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-29 17:30:15
+ * @LastEditTime: 2023-01-30 09:28:28
  * @Descripttion:
  */
 import {
@@ -23,6 +23,13 @@ export function useColumns() {
     {
       label: "姓名",
       prop: "username"
+    },
+    {
+      label: "头像",
+      prop: "avatarUrl",
+      cellRenderer: ({ row }) => (
+        <el-avatar size={40} fit="cover" src={row.avatarUrl} />
+      )
     },
     {
       label: "性别",

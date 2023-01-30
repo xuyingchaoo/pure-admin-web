@@ -2,13 +2,12 @@
  * @Author: xuyingchao
  * @Date: 2023-01-16 15:35:11
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-29 17:28:38
+ * @LastEditTime: 2023-01-30 13:22:25
  * @Descripttion:
  */
 import { isPhone } from "@pureadmin/utils";
 import { cloneDeep } from "@pureadmin/utils";
 import { getUserDetails } from "@/api/demo";
-// export function useForm() {
 const formData = reactive({
   id: "",
   username: "",
@@ -54,27 +53,19 @@ const handleForm = (formData: any) => {
 function initDetails() {
   const route = useRoute();
   const id = route.query?.id ? route.query?.id : "";
-  return new Promise((resolve, reject) => {
-    if (id) {
-      getUserDetails({ id }).then(res => {
-        console.log("initDetails ing");
-        if (res.code == 0) {
-          const { avatarUrl, username, sex, mobile, roleIdList, id } = res.data;
-          formData.id = id;
-          formData.avatarUrl = [avatarUrl];
-          formData.username = username;
-          formData.sex = sex;
-          formData.mobile = mobile;
-          formData.roleIdList = roleIdList;
-          resolve("");
-        } else {
-          reject();
-        }
-      });
-    } else {
-      reject();
-    }
-  });
+  if (id) {
+    getUserDetails({ id }).then(res => {
+      console.log("initDetails ing");
+      if (res.code == 0) {
+        const { avatarUrl, username, sex, mobile, roleIdList, id } = res.data;
+        formData.id = id;
+        formData.avatarUrl = avatarUrl ? [{ url: avatarUrl }] : [];
+        formData.username = username;
+        formData.sex = sex;
+        formData.mobile = mobile;
+        formData.roleIdList = roleIdList;
+      }
+    });
+  }
 }
 export { dataLoading, formData, rules, initDetails, handleForm };
-// }

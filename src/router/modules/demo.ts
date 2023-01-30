@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-10 09:58:55
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-16 15:16:15
+ * @LastEditTime: 2023-01-30 09:38:20
  * @Descripttion: 自定义demo静态路由
  */
 export default {
@@ -39,9 +39,9 @@ export default {
       }
     },
     {
-      path: "/demo/table/edit",
-      name: "人员新增",
-      component: () => import("@/views/demo/table/edit.vue"),
+      path: "/demo/table/details",
+      name: "人员详情",
+      component: () => import("@/views/demo/table/details.vue"),
       meta: {
         showLink: false
       }

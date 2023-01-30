@@ -2,12 +2,11 @@
  * @Author: xuyingchao
  * @Date: 2023-01-09 16:09:15
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-29 17:30:10
+ * @LastEditTime: 2023-01-30 13:30:37
  * @Descripttion: 
 -->
 <script setup lang="ts">
 import { useRenderIcon } from "@/components/Re/ReIcon/src/hooks";
-// import { useCommon } from "@/utils/rzCommon";
 // 图标
 import Search from "@iconify-icons/ep/search";
 import Refresh from "@iconify-icons/ep/refresh";
@@ -19,6 +18,7 @@ import Password from "@iconify-icons/ri/lock-password-line";
 import AddFill from "@iconify-icons/ri/add-circle-line";
 import Filter from "@iconify-icons/ep/filter";
 import Download from "@iconify-icons/ep/download";
+import View from "@iconify-icons/ep/view";
 import { useColumns } from "./columns";
 import { useCommon } from "@/utils/rzCommon";
 const { handleRouter } = useCommon();
@@ -47,16 +47,24 @@ function handleDrawer() {
   showDrawer.value = true;
 }
 // 新增
-function handleEdit(row) {
+function handleEdit(type, row) {
   let query = {};
   if (row) {
     query = { id: row.id };
   }
-  handleRouter({
-    path: "/demo/form",
-    name: "DemoForm",
-    query
-  });
+  if (type == 3) {
+    handleRouter({
+      path: "/demo/table/details",
+      name: "人员详情",
+      query
+    });
+  } else {
+    handleRouter({
+      path: "/demo/form",
+      name: "DemoForm",
+      query
+    });
+  }
 }
 </script>
 <template>
@@ -124,7 +132,7 @@ function handleEdit(row) {
               <el-button
                 type="primary"
                 :icon="useRenderIcon(AddFill)"
-                @click="handleEdit"
+                @click="handleEdit(1)"
               >
                 新增
               </el-button>
@@ -153,7 +161,14 @@ function handleEdit(row) {
               >
                 <template #operation="{ row }">
                   <el-button
-                    @click="handleEdit(row)"
+                    @click="handleEdit(3, row)"
+                    link
+                    type="primary"
+                    :icon="useRenderIcon(View)"
+                    >查看
+                  </el-button>
+                  <el-button
+                    @click="handleEdit(2, row)"
                     link
                     type="primary"
                     :icon="useRenderIcon(EditPen)"
