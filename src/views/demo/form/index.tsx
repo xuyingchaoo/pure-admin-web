@@ -2,12 +2,13 @@
  * @Author: xuyingchao
  * @Date: 2023-01-16 15:35:11
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-30 13:22:25
+ * @LastEditTime: 2023-01-30 15:53:26
  * @Descripttion:
  */
 import { isPhone } from "@pureadmin/utils";
 import { cloneDeep } from "@pureadmin/utils";
 import { getUserDetails } from "@/api/demo";
+// export function useForm() {
 const formData = reactive({
   id: "",
   username: "",
@@ -69,3 +70,4 @@ function initDetails() {
   }
 }
 export { dataLoading, formData, rules, initDetails, handleForm };
+// }

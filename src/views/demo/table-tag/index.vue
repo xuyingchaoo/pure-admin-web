@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-09 16:09:15
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-30 13:32:32
+ * @LastEditTime: 2023-01-30 14:31:39
  * @Descripttion: 
 -->
 <script setup lang="ts">
@@ -19,7 +19,7 @@ import AddFill from "@iconify-icons/ri/add-circle-line";
 import Filter from "@iconify-icons/ep/filter";
 import Download from "@iconify-icons/ep/download";
 import View from "@iconify-icons/ep/view";
-import { useColumns } from "./columns";
+import { useColumns } from "./index";
 import { useCommon } from "@/utils/rzCommon";
 const { handleRouter } = useCommon();
 const {
@@ -54,14 +54,14 @@ function handleEdit(type, row) {
   }
   if (type == 3) {
     handleRouter({
-      path: "/demo/table/details",
+      path: "/demo/tableTag/details",
       name: "人员详情",
       query
     });
   } else {
     handleRouter({
-      path: "/demo/form",
-      name: "DemoForm",
+      path: "/demo/tableTag/edit",
+      name: "人员编辑",
       query
     });
   }
@@ -132,7 +132,7 @@ function handleEdit(type, row) {
               <el-button
                 type="primary"
                 :icon="useRenderIcon(AddFill)"
-                @click="handleEdit(1)"
+                @click="handleEdit(1, {})"
               >
                 新增
               </el-button>

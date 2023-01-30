@@ -15,7 +15,7 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "sourceMap": true,
-    "baseUrl": ".",
+    "baseUrl": "./",
     "allowJs": false,
     "resolveJsonModule": true,
     "lib": ["dom", "esnext"],

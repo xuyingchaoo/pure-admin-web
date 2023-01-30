@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-10 09:58:55
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-30 09:38:20
+ * @LastEditTime: 2023-01-30 16:00:12
  * @Descripttion: 自定义demo静态路由
  */
 export default {
@@ -19,15 +19,24 @@ export default {
       name: "DemoForm",
       component: () => import("@/views/demo/form/index.vue"),
       meta: {
-        title: "DemoForm"
+        title: "DemoForm",
+        keepAlive: true
       }
     },
     {
-      path: "/demo/table",
-      name: "DemoTable",
+      path: "/demo/tableTag",
+      name: "DemoTable-新标签模式",
+      component: () => import("@/views/demo/table-tag/index.vue"),
+      meta: {
+        title: "DemoTable-新标签模式"
+      }
+    },
+    {
+      path: "/demo/tableIn",
+      name: "DemoTable-内部模式",
       component: () => import("@/views/demo/table/index.vue"),
       meta: {
-        title: "DemoTable"
+        title: "DemoTable-内部模式"
       }
     },
     {
@@ -39,10 +48,19 @@ export default {
       }
     },
     {
-      path: "/demo/table/details",
+      path: "/demo/tableTag/details",
       name: "人员详情",
-      component: () => import("@/views/demo/table/details.vue"),
+      component: () => import("@/views/demo/table-tag/details.vue"),
       meta: {
+        showLink: false
+      }
+    },
+    {
+      path: "/demo/tableTag/edit",
+      name: "人员编辑",
+      component: () => import("@/views/demo/table-tag/edit.vue"),
+      meta: {
+        title: "人员编辑",
         showLink: false
       }
     }

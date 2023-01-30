@@ -2,18 +2,17 @@
  * @Author: xuyingchao
  * @Date: 2023-01-09 16:09:15
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-30 15:53:41
+ * @LastEditTime: 2023-01-30 15:55:15
  * @Descripttion: 
 -->
 <script setup lang="ts">
-// import { useForm } from "./index";
+import { useForm } from "./edit";
 import { doAddUser, doEditUser } from "@/api/demo";
 import { message } from "@/utils/message";
 import { useCommon } from "@/utils/rzCommon";
+const { formData, rules, initDetails, dataLoading, handleForm } = useForm();
 const { handleCloseTag } = useCommon();
 const formRef = ref();
-import { formData, rules, initDetails, dataLoading, handleForm } from "./index";
-
 // 提交表单
 async function handleSubmit(formRef) {
   if (!formRef) return;
@@ -28,7 +27,7 @@ async function handleSubmit(formRef) {
             type: "success"
           });
           // 关闭标签
-          handleCloseTag("/demo/form");
+          handleCloseTag("/demo/tableTag/edit");
         } else {
           message(res.msg, {
             type: "error"
@@ -39,13 +38,18 @@ async function handleSubmit(formRef) {
     }
   });
 }
+onUnmounted(() => {
+  console.log("onUnmounted", formData);
+  // formRef.value.resetFields();
+});
 onMounted(() => {
+  console.log("initDetails");
   initDetails();
 });
 </script>
 <template>
   <el-card v-loading="dataLoading">
-    <rz-layout :btnShow="true" currentPath="/demo/form">
+    <rz-layout :btnShow="true" currentPath="/demo/tableTag/edit">
       <template #content>
         <rz-title title="基本信息" />
         <el-form

@@ -2,13 +2,14 @@
  * @Author: xuyingchao
  * @Date: 2023-01-10 14:52:11
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-30 13:23:55
+ * @LastEditTime: 2023-01-30 14:25:55
  * @Descripttion: 
 -->
 <script setup lang="ts">
 import { getUserDetails } from "@/api/demo";
 const dataLoading = ref(false);
-const formData = ref({});
+const formData = <any>ref({});
+// 请求详情
 function initDetails() {
   const route = useRoute();
   const id = route.query?.id ? route.query?.id : "";
@@ -28,7 +29,7 @@ onMounted(() => {
 </script>
 <template>
   <el-card v-loading="dataLoading">
-    <rz-layout :btnShow="true" currentPath="/demo/table/details">
+    <rz-layout :btnShow="true" currentPath="/demo/tableTag/details">
       <template #content>
         <rz-title title="基本信息" />
         <div class="rz-details">
