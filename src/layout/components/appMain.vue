@@ -144,8 +144,8 @@ const transitionMain = defineComponent({
 
 .main-content {
   margin: 24px;
-  /* position: relative; */
+  position: relative;
   /* 85顶部菜单栏 48上下边距 */
-  /* min-height: calc(100vh - 85px - 48px); */
+  min-height: calc(100vh - 85px - 48px);
 }
 </style>

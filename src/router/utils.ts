@@ -216,7 +216,6 @@ function initRouter() {
     return new Promise(resolve => {
       // getAsyncRoutes().then(({ data }) => {
       getMenu({ device: 1 }).then(({ data }) => {
-        console.log("getMenu", data);
         const { menuList } = data;
         data = [
           {
@@ -247,7 +246,6 @@ function initRouter() {
             ]
           }
         ].concat(handleMenu(menuList));
-        console.log("data", data);
         handleAsyncRoutes(cloneDeep(data));
         resolve(router);
       });
@@ -295,7 +293,6 @@ function handleMenu(menuList) {
     }
     newMenuList.push(parentMenu);
   });
-  console.log(newMenuList);
   return newMenuList;
 }
 

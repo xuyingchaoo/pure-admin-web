@@ -49,7 +49,6 @@ export default defineComponent({
         "outline-none"
       ];
     });
-    console.log(props);
     function onReFresh() {
       loading.value = true;
       emit("refresh");
@@ -106,7 +105,7 @@ export default defineComponent({
 
     return () => (
       <>
-        <div {...attrs} class="w-[99/100] mt-6 p-2 bg-bg_color">
+        <div {...attrs} class="w-[99/100] p-2 bg-bg_color">
           <div class="flex justify-between w-full h-[60px] p-4">
             <p class="font-bold truncate">{props.title}</p>
             <div class="flex items-center justify-around">
@@ -146,14 +145,14 @@ export default defineComponent({
                   <CollapseIcon class={["w-[16px]", iconClass.value]} />
                 </el-dropdown>
               </el-tooltip>
-              <el-divider direction="vertical" />
+              {/* <el-divider direction="vertical" /> */}
 
-              <el-popover v-slots={reference} width="200" trigger="click">
+              {/* <el-popover v-slots={reference} width="200" trigger="click">
                 <el-checkbox-group v-model={checkList.value}>
                   <el-checkbox label="序号列" />
                   <el-checkbox label="勾选列" />
                 </el-checkbox-group>
-              </el-popover>
+              </el-popover> */}
             </div>
 
             <el-tooltip

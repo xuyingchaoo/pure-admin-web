@@ -2,7 +2,11 @@
  * @Author: xuyingchao
  * @Date: 2023-01-09 15:06:15
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-19 13:15:19
+<<<<<<< HEAD
+ * @LastEditTime: 2023-01-30 13:31:38
+=======
+ * @LastEditTime: 2023-01-19 13:26:08
+>>>>>>> xuyingchao
  * @Descripttion:
  */
 import App from "./App.vue";
@@ -50,8 +54,8 @@ app.component("IconifyIconOffline", IconifyIconOffline);
 app.component("IconifyIconOnline", IconifyIconOnline);
 app.component("FontIcon", FontIcon);
 
-// import RzLayout from "@/layout/RzLayout.vue";
-// app.component("RzLayout", RzLayout);
+import RzLayout from "@/layout/RzLayout.vue";
+app.component("RzLayout", RzLayout);
 
 // 全局注册
 app.component("PureTableBar", PureTableBar);

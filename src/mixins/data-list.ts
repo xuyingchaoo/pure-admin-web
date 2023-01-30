@@ -2,19 +2,21 @@
  * @Author: xuyingchao
  * @Date: 2023-01-12 13:22:37
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-16 17:31:09
+ * @LastEditTime: 2023-01-30 13:30:31
  * @Descripttion:
  */
 import { ref, reactive } from "vue";
 import type { PaginationProps } from "@pureadmin/table";
 import { getTableList, doTableDelete } from "@/api/common";
 import { message } from "@/utils/message";
-
+import { useCommon } from "@/utils/rzCommon";
+const { downLoadExcel } = useCommon();
 const mixinViewModuleOptions = reactive({
   getDataListURL: "", // 数据列表接口，API地址
   deleteURL: "", // 删除接口，API地址
   exportURL: "", // 导出接口，API地址
-  needOrder: false // 是否需要排序
+  needOrder: true, // 是否需要排序
+  searchForm: {} // 搜索参数
 });
 
 /** 分页配置 */
@@ -52,7 +54,6 @@ function getTableData(searchForm) {
         }
       } else if (key === "dateArray" && searchForm.dateArray) {
         if (searchForm.dateArray.length > 0) {
-          console.log("params", params);
           searchForm.date = searchForm.dateArray.join(",");
         }
       }
@@ -88,9 +89,8 @@ function onSizeChange(e) {
   pagination.pageSize = e;
   getTableData(params);
 }
-
+// 删除请求
 function doDelete(params) {
-  console.log(params);
   loading.value = true;
   doTableDelete({
     url: mixinViewModuleOptions.deleteURL,
@@ -101,15 +101,29 @@ function doDelete(params) {
       message("删除成功！", {
         type: "success"
       });
-      getTableData(params);
+      getTableData(mixinViewModuleOptions.searchForm);
     } else {
       loading.value = false;
       message(res.msg, {
         type: "error"
       });
     }
-    console.log(res);
   });
+}
+
+// 删除
+function handleDelete(row) {
+  doDelete([row.id]);
+}
+// 重置
+function resetForm(searchFormRef) {
+  if (!searchFormRef) return;
+  searchFormRef.resetFields();
+  getTableData(mixinViewModuleOptions.searchForm);
+}
+// 导出
+function handleExportOut() {
+  downLoadExcel(mixinViewModuleOptions.exportURL, params);
 }
 
 export {
@@ -117,6 +131,9 @@ export {
   onCurrentChange,
   onSizeChange,
   doDelete,
+  handleDelete,
+  resetForm,
+  handleExportOut,
   mixinViewModuleOptions,
   pagination,
   dataList,
