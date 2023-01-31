@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-10 09:58:55
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-30 16:00:12
+ * @LastEditTime: 2023-01-31 09:18:46
  * @Descripttion: 自定义demo静态路由
  */
 export default {
@@ -19,8 +19,7 @@ export default {
       name: "DemoForm",
       component: () => import("@/views/demo/form/index.vue"),
       meta: {
-        title: "DemoForm",
-        keepAlive: true
+        title: "DemoForm"
       }
     },
     {
@@ -34,7 +33,7 @@ export default {
     {
       path: "/demo/tableIn",
       name: "DemoTable-内部模式",
-      component: () => import("@/views/demo/table/index.vue"),
+      component: () => import("@/views/demo/table-in/index.vue"),
       meta: {
         title: "DemoTable-内部模式"
       }

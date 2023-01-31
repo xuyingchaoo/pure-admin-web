@@ -2,8 +2,8 @@
  * @Author: xuyingchao
  * @Date: 2023-01-19 13:53:58
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-19 14:02:51
- * @Descripttion: 
+ * @LastEditTime: 2023-01-31 16:27:41
+ * @Descripttion: 页面内小标题组件
 -->
 <script setup lang="ts">
 const props = defineProps({

@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-19 09:31:44
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-30 13:31:51
+ * @LastEditTime: 2023-01-31 10:21:06
  * @Descripttion: 
 -->
 <script setup lang="ts">
@@ -14,6 +14,12 @@ const props = defineProps({
     require: false,
     type: String,
     default: ""
+  },
+  // 页面切换模式 1-标签页 2-内部
+  openModel: {
+    require: false,
+    type: Number,
+    default: 1
   },
   // 是否需要显示底部操作按钮
   btnShow: {
@@ -28,10 +34,16 @@ const props = defineProps({
     default: ""
   }
 });
+const emit = defineEmits(["handleBack"]);
+
 // 取消
 function handleBack() {
-  // 关闭标签
-  handleCloseTag(props.currentPath);
+  if (props.openModel == 1) {
+    // 关闭标签
+    handleCloseTag(props.currentPath);
+  } else {
+    emit("handleBack");
+  }
 }
 </script>
 

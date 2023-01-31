@@ -2,8 +2,8 @@
  * @Author: xuyingchao
  * @Date: 2023-01-28 10:15:59
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-29 11:27:24
- * @Descripttion: 
+ * @LastEditTime: 2023-01-31 16:27:58
+ * @Descripttion: 侧边轴屉组件
 -->
 <script setup lang="ts">
 const props = defineProps({

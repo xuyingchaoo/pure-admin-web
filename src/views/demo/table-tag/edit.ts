@@ -2,12 +2,11 @@
  * @Author: xuyingchao
  * @Date: 2023-01-16 15:35:11
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-30 15:54:49
+ * @LastEditTime: 2023-01-31 16:11:27
  * @Descripttion:
  */
 import { isPhone } from "@pureadmin/utils";
 import { cloneDeep } from "@pureadmin/utils";
-import { getUserDetails } from "@/api/demo";
 export function useForm() {
   const formData = reactive({
     id: "",
@@ -51,24 +50,5 @@ export function useForm() {
     return { ...form, ...form2 };
   };
 
-  function initDetails() {
-    const route = useRoute();
-    const id = route.query?.id ? route.query?.id : "";
-    console.log(id, formData);
-    if (id) {
-      getUserDetails({ id }).then(res => {
-        console.log("initDetails ing");
-        if (res.code == 0) {
-          const { avatarUrl, username, sex, mobile, roleIdList, id } = res.data;
-          formData.id = id;
-          formData.avatarUrl = avatarUrl ? [{ url: avatarUrl }] : [];
-          formData.username = username;
-          formData.sex = sex;
-          formData.mobile = mobile;
-          formData.roleIdList = roleIdList;
-        }
-      });
-    }
-  }
-  return { dataLoading, formData, rules, initDetails, handleForm };
+  return { dataLoading, formData, rules, handleForm };
 }

@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-09 16:09:15
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-31 16:14:22
+ * @LastEditTime: 2023-01-31 16:09:00
  * @Descripttion: 
 -->
 <script setup lang="ts">
@@ -15,6 +15,20 @@ const { formData, rules, dataLoading, handleForm } = useForm();
 const { handleCloseTag } = useCommon();
 const formRef = ref();
 const uploadImgRef = ref();
+const props = defineProps({
+  showType: {
+    require: true,
+    type: Number
+  },
+  query: {
+    require: false,
+    type: Object as any
+  }
+});
+const emit = defineEmits(["update:showType"]);
+function handleBack() {
+  emit("update:showType", 1);
+}
 // 提交表单
 async function handleSubmit(formRef) {
   if (!formRef) return;
@@ -29,8 +43,8 @@ async function handleSubmit(formRef) {
           message("操作成功！", {
             type: "success"
           });
-          // 关闭标签
-          handleCloseTag("/demo/tableTag/edit");
+          // 退回
+          handleBack();
         } else {
           message(res.msg, {
             type: "error"
@@ -42,12 +56,9 @@ async function handleSubmit(formRef) {
   });
 }
 function initDetails() {
-  const route = useRoute();
-  const id = route.query?.id ? route.query?.id : "";
-  console.log(id, formData);
+  const { id } = props.query;
   if (id) {
     getUserDetails({ id }).then(res => {
-      console.log("initDetails ing");
       if (res.code == 0) {
         const { avatarUrl, username, sex, mobile, roleIdList, id } = res.data;
         formData.id = id;
@@ -66,8 +77,13 @@ onMounted(() => {
 });
 </script>
 <template>
-  <el-card v-loading="dataLoading">
-    <rz-layout :btnShow="true" currentPath="/demo/tableTag/edit">
+  <el-card class="rz-page" v-loading="dataLoading">
+    <rz-layout
+      :btnShow="true"
+      :openModel="2"
+      currentPath="/demo/tableTag/edit"
+      @handleBack="handleBack"
+    >
       <template #content>
         <rz-title title="基本信息" />
         <el-form

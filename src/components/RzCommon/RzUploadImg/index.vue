@@ -2,8 +2,8 @@
  * @Author: xuyingchao
  * @Date: 2023-01-28 14:35:21
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-30 09:14:31
- * @Descripttion: 
+ * @LastEditTime: 2023-01-31 16:27:32
+ * @Descripttion: 上传图片组件 支持预览
 -->
 <script setup lang="ts">
 import Refresh from "@iconify-icons/ep/plus";
@@ -26,32 +26,20 @@ const props = defineProps({
   // 上传图片格式
   accept: {
     type: String,
-    default:
-      "image/*,video/*,audio/*,.pdf,.xlsx,.xls,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    default: "image/*"
   },
   // 默认提示
   tip: {
     require: false,
     type: String
-  },
-  fileListDefault: {
-    require: false,
-    type: Array
   }
 });
 const fileList = ref([]);
-onMounted(() => {
-  console.log(props.fileListDefault);
-  setTimeout(() => {
-    fileList.value = props.fileListDefault;
-  }, 500);
-});
 
 const accessToken = getToken().accessToken;
 const uploadUrl = baseUrlApi(`oss/upload?token=${accessToken}`); // 上传地址
 const dialogVisible = ref(false); // 预览弹窗显隐
 const dialogImageUrl = ref(""); // 预览图片地址
-const emit = defineEmits(["update:fileListDefault"]);
 // 预览图片
 function handlePictureCardPreview(uploadFile) {
   dialogImageUrl.value = uploadFile.url!;
@@ -60,7 +48,6 @@ function handlePictureCardPreview(uploadFile) {
 // 删除
 function handleRemove(file) {
   fileList.value = fileList.value.filter(item => item.uid != file.uid);
-  refreshData();
 }
 // 接口上传--上传成功
 function uploadFileSuccess(response, file, list) {
@@ -70,10 +57,6 @@ function uploadFileSuccess(response, file, list) {
       fileList.value[i].url = response.data;
     }
   });
-  refreshData();
-}
-function refreshData() {
-  emit("update:fileListDefault", fileList.value);
 }
 // 上传文件之前校验格式和大小
 function uploadBefore(file) {
@@ -83,19 +66,6 @@ function uploadBefore(file) {
     if (!isLimitSize) {
       message(`大小不能超过${props.limitSize}MB!`, {
         type: "warning"
-      });
-      reject(false);
-    }
-    // 判断图片格式
-    const isJPG = [
-      "image/jpeg",
-      "image/png",
-      "image/gif",
-      "image/jpg"
-    ].includes(file.type);
-    if (!isJPG) {
-      message(`上传图片只能是 JPG、JPEG、PNG、GIF 格式!`, {
-        type: "error"
       });
       reject(false);
     } else {
@@ -109,6 +79,10 @@ function handleExceed() {
     type: "warning"
   });
 }
+// 对外暴露的属性
+defineExpose({
+  fileList
+});
 </script>
 <template>
   <div class="rz-upload-img">

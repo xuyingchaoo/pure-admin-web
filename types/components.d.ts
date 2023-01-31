@@ -11,7 +11,11 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     RzDrawer: typeof import('./../src/components/RzCommon/RzDrawer/index.vue')['default']
+    RzEditor: typeof import('./../src/components/RzCommon/RzEditor/index.vue')['default']
     RzTitle: typeof import('./../src/components/RzCommon/RzTitle/index.vue')['default']
     RzUpload: typeof import('./../src/components/RzCommon/RzUpload/index.vue')['default']
+    RzUploadFile: typeof import('./../src/components/RzCommon/RzUploadFile/index.vue')['default']
+    RzUploadImg: typeof import('./../src/components/RzCommon/RzUploadImg/index.vue')['default']
+    RzUploadVideo: typeof import('./../src/components/RzCommon/RzUploadVideo/index.vue')['default']
   }
 }
