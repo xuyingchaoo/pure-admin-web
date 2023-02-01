@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-09 16:09:15
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-31 16:24:22
+ * @LastEditTime: 2023-01-31 17:09:43
  * @Descripttion: 
 -->
 <script setup lang="ts">
@@ -36,6 +36,9 @@ async function handleSubmit(formRef) {
 }
 onMounted(() => {
   initDetails();
+  // nextTick(() => {
+  //   rzEditorRef.value.init('<p>123</p>');
+  // });
 });
 </script>
 <template>

@@ -44,7 +44,7 @@ export function useForm() {
   const handleForm = (formData: any) => {
     const { avatarUrl } = formData,
       form = cloneDeep(formData);
-    form.avatarUrl = avatarUrl[0].url;
+    form.avatarUrl = avatarUrl[0]?.url;
     // 数据造假
     const form2 = { corpId: 6, userMenuDoList: [], belong: 1 };
     return { ...form, ...form2 };

@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-10 09:58:55
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-31 09:18:46
+ * @LastEditTime: 2023-02-01 17:24:33
  * @Descripttion: 自定义demo静态路由
  */
 export default {
@@ -23,6 +23,14 @@ export default {
       }
     },
     {
+      path: "/demo/dialog",
+      name: "DemoDialog",
+      component: () => import("@/views/demo/dialog/index.vue"),
+      meta: {
+        title: "DemoDialog"
+      }
+    },
+    {
       path: "/demo/tableTag",
       name: "DemoTable-新标签模式",
       component: () => import("@/views/demo/table-tag/index.vue"),
@@ -36,6 +44,14 @@ export default {
       component: () => import("@/views/demo/table-in/index.vue"),
       meta: {
         title: "DemoTable-内部模式"
+      }
+    },
+    {
+      path: "/demo/tableEdit",
+      name: "DemoTable-可编辑",
+      component: () => import("@/views/demo/table-edit/index.vue"),
+      meta: {
+        title: "DemoTable-可编辑"
       }
     },
     {

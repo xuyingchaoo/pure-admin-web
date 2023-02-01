@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-19 09:31:44
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-31 10:21:06
+ * @LastEditTime: 2023-02-01 09:27:16
  * @Descripttion: 
 -->
 <script setup lang="ts">
@@ -49,22 +49,22 @@ function handleBack() {
 
 <template>
   <div :class="[type == 'list' ? 'rz-layout-list' : '', 'rz-layout']">
-    <el-scrollbar>
-      <div
-        class="layout-content"
-        :style="{ paddingBottom: btnShow ? '99px' : '' }"
-      >
+    <div
+      class="layout-content"
+      :style="{ paddingBottom: btnShow ? '99px' : '' }"
+    >
+      <el-scrollbar>
         <slot name="content" />
-      </div>
-      <div class="layout-btn" v-if="btnShow">
-        <!-- 默认有取消按钮 -->
-        <el-button @click="handleBack">取消</el-button>
-        <slot name="btn" />
-      </div>
-    </el-scrollbar>
+      </el-scrollbar>
+    </div>
+    <div class="layout-btn" v-if="btnShow">
+      <!-- 默认有取消按钮 -->
+      <el-button @click="handleBack">取消</el-button>
+      <slot name="btn" />
+    </div>
   </div>
 </template>
-<style lang="scss" scoped>
+<style lang="scss">
 .rz-layout-list.rz-layout {
   width: 100%;
 }
@@ -84,6 +84,14 @@ function handleBack() {
     display: flex;
     align-items: center;
     // box-shadow: 0 0 13px rgba(0, 0, 0, 0.1);
+  }
+}
+.layout-content {
+  min-height: 100%;
+  .el-scrollbar__view {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
   }
 }
 </style>

@@ -92,14 +92,14 @@ const transitionMain = defineComponent({
               <component
                 :is="Component"
                 :key="route.fullPath"
-                class="main-content aaaaa"
+                class="main-content"
               />
             </keep-alive>
             <component
               v-else
               :is="Component"
               :key="route.fullPath"
-              class="main-content bbbb"
+              class="main-content"
             />
           </transitionMain>
         </el-scrollbar>

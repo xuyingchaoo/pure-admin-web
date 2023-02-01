@@ -2,10 +2,11 @@
  * @Author: xuyingchao
  * @Date: 2023-01-10 13:49:58
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-30 09:28:28
+ * @LastEditTime: 2023-02-01 09:14:27
  * @Descripttion:
  */
-import {
+import { useDataList } from "@/mixins/data-list";
+const {
   getTableData,
   onCurrentChange,
   onSizeChange,
@@ -16,7 +17,7 @@ import {
   handleDelete,
   resetForm,
   handleExportOut
-} from "@/mixins/data-list";
+} = useDataList();
 export function useColumns() {
   /** 表格列 */
   const columns: TableColumnList = [

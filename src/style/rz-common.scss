@@ -71,3 +71,11 @@
   height: 100%;
 }
 /* 编辑页/详情页 e*/
+
+// 表格错误样式
+.error-row{
+  background-color: #FFEFEC !important;
+  td{
+    background-color: #FFEFEC !important;
+  }
+}

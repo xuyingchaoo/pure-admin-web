@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-19 13:53:58
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-31 15:08:42
+ * @LastEditTime: 2023-01-31 17:06:59
  * @Descripttion: 编辑器组件
 -->
 <script setup lang="ts">
@@ -34,6 +34,7 @@ const editorConfig: Partial<IEditorConfig> = {
 };
 const mode = "default";
 const handleCreated = editor => {
+  console.log(editor);
   editorRef.value = editor; // 记录 editor 实例，重要！
 };
 // 上传地址配置
@@ -102,6 +103,9 @@ editorConfig.MENU_CONF["uploadVideo"] = {
   }
   // 视频不支持 base64 格式插入
 };
+function init(str) {
+  editorRef.value.setHtml(str);
+}
 // 组件销毁时，也及时销毁编辑器
 onBeforeUnmount(() => {
   const editor = editorRef.value;
@@ -110,7 +114,8 @@ onBeforeUnmount(() => {
 });
 // 对外暴露的属性
 defineExpose({
-  valueHtml
+  valueHtml,
+  init
 });
 </script>
 <template>
