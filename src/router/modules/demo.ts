@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-10 09:58:55
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-02-01 17:24:33
+ * @LastEditTime: 2023-02-02 10:51:33
  * @Descripttion: 自定义demo静态路由
  */
 export default {
@@ -25,35 +25,64 @@ export default {
     {
       path: "/demo/dialog",
       name: "DemoDialog",
-      component: () => import("@/views/demo/dialog/index.vue"),
+      redirect: "/demo/dialog",
       meta: {
         title: "DemoDialog"
-      }
+      },
+      children: [
+        {
+          path: "/demo/form-dialog",
+          name: "表单弹窗",
+          component: () => import("@/views/demo/dialog/form-dialog/index.vue"),
+          meta: {
+            title: "表单弹窗"
+          }
+        },
+        {
+          path: "/demo/table-dialog",
+          name: "表格搜索弹窗",
+          component: () => import("@/views/demo/dialog/table-dialog/index.vue"),
+          meta: {
+            title: "表格搜索弹窗"
+          }
+        }
+      ]
     },
     {
-      path: "/demo/tableTag",
-      name: "DemoTable-新标签模式",
-      component: () => import("@/views/demo/table-tag/index.vue"),
+      path: "/demo/table",
+      name: "DemoTable",
+      redirect: "/demo/table",
       meta: {
-        title: "DemoTable-新标签模式"
-      }
+        title: "DemoTable"
+      },
+      children: [
+        {
+          path: "/demo/table/tableTag",
+          name: "新标签模式",
+          component: () => import("@/views/demo/table/table-tag/index.vue"),
+          meta: {
+            title: "新标签模式"
+          }
+        },
+        {
+          path: "/demo/table/tableIn",
+          name: "内部模式",
+          component: () => import("@/views/demo/table/table-in/index.vue"),
+          meta: {
+            title: "内部模式"
+          }
+        },
+        {
+          path: "/demo/table/tableEdit",
+          name: "可编辑",
+          component: () => import("@/views/demo/table/table-edit/index.vue"),
+          meta: {
+            title: "可编辑"
+          }
+        }
+      ]
     },
-    {
-      path: "/demo/tableIn",
-      name: "DemoTable-内部模式",
-      component: () => import("@/views/demo/table-in/index.vue"),
-      meta: {
-        title: "DemoTable-内部模式"
-      }
-    },
-    {
-      path: "/demo/tableEdit",
-      name: "DemoTable-可编辑",
-      component: () => import("@/views/demo/table-edit/index.vue"),
-      meta: {
-        title: "DemoTable-可编辑"
-      }
-    },
+
     {
       path: "/demo/icon",
       name: "DemoIcon",

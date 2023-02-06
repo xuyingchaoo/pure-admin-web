@@ -29,7 +29,7 @@ onMounted(() => {
 </script>
 <template>
   <el-card v-loading="dataLoading">
-    <rz-layout :btnShow="true" currentPath="/demo/tableTag/details">
+    <rz-layout :btnShow="true" currentPath="/demo/table/tableTag/details">
       <template #content>
         <rz-title title="基本信息" />
         <div class="rz-details">

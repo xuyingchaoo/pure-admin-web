@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-16 15:35:11
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-31 16:23:53
+ * @LastEditTime: 2023-02-02 08:58:55
  * @Descripttion:
  */
 import { isPhone } from "@pureadmin/utils";
@@ -35,11 +35,11 @@ export function useForm() {
         required: true,
         message: "请输入联系方式",
         trigger: "blur"
+      },
+      {
+        validator: validatePhone,
+        trigger: "blur"
       }
-      // {
-      //   validator: validatePhone,
-      //   trigger: "blur"
-      // }
     ],
     roleIdList: [{ required: true, message: "请选择角色", trigger: "blur" }]
   };

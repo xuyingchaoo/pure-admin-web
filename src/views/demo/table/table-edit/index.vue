@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-31 17:19:13
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-02-01 17:17:38
+ * @LastEditTime: 2023-02-02 10:05:59
  * @Descripttion: 
 -->
 <script setup lang="ts">
@@ -100,6 +100,7 @@ onBeforeMount(() => {
             :columns="columns"
             :key="timeStr"
             :row-class-name="tableRowClassName"
+            header-row-class-name="rz-table-heard"
           >
             <template #inputNumber="{ row }">
               <rz-number-input

@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-10 14:52:11
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-31 11:16:32
+ * @LastEditTime: 2023-02-02 10:53:02
  * @Descripttion: 
 -->
 <script setup lang="ts">
@@ -47,7 +47,7 @@ onMounted(() => {
     <rz-layout
       :btnShow="true"
       :openModel="2"
-      currentPath="/demo/tableTag/details"
+      currentPath="/demo/table/tableTag/details"
       @handleBack="handleBack"
     >
       <template #content>

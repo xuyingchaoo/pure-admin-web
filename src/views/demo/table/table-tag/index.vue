@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-09 16:09:15
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-02-01 13:16:12
+ * @LastEditTime: 2023-02-02 10:06:20
  * @Descripttion: 
 -->
 <script setup lang="ts">
@@ -19,7 +19,9 @@ import AddFill from "@iconify-icons/ri/add-circle-line";
 import Filter from "@iconify-icons/ep/filter";
 import Download from "@iconify-icons/ep/download";
 import View from "@iconify-icons/ep/view";
-import { useColumns } from "./list";
+import { useColumns } from "./index";
+import { useCommon } from "@/utils/rzCommon";
+const { handleRouter } = useCommon();
 const {
   columns,
   searchForm,
@@ -33,17 +35,7 @@ const {
   dataList,
   loading
 } = useColumns();
-const props = defineProps({
-  showType: {
-    require: true,
-    type: Number
-  },
-  query: {
-    require: false,
-    type: Object as any
-  }
-});
-const emit = defineEmits(["update:showType", "update:query"]);
+
 // 表单实例
 const searchFormRef = ref();
 const drawerFormRef = ref();
@@ -60,10 +52,19 @@ function handleEdit(type, row) {
   if (row) {
     query = { id: row.id };
   }
-  // 1、2 都跳转编辑页 3跳转详情页
-  emit("update:showType", type == 3 ? 3 : 2);
-  emit("update:query", query);
-  console.log("query", query);
+  if (type == 3) {
+    handleRouter({
+      path: "/demo/tableTag/details",
+      name: "人员详情",
+      query
+    });
+  } else {
+    handleRouter({
+      path: "/demo/tableTag/edit",
+      name: "人员编辑",
+      query
+    });
+  }
 }
 </script>
 <template>
@@ -149,6 +150,7 @@ function handleEdit(type, row) {
               table-layout="auto"
               row-key="id"
               showOverflowTooltip
+              header-row-class-name="rz-table-heard"
               :loading="loading"
               :data="dataList"
               :size="size"

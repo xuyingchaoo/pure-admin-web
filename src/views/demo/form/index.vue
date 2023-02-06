@@ -2,12 +2,13 @@
  * @Author: xuyingchao
  * @Date: 2023-01-09 16:09:15
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-31 17:09:43
+ * @LastEditTime: 2023-02-02 09:08:46
  * @Descripttion: 
 -->
 <script setup lang="ts">
+import { FormInstance } from "element-plus";
 import { useForm } from "./index";
-const formRef = ref();
+const formRef = ref<FormInstance>();
 const rzEditorRef = ref(); // editor实例
 const uploadImgRef = ref(); // 图片上传实例
 const uploadVideoRef = ref(); // 视频上传实例
@@ -15,7 +16,7 @@ const uploadFileRef = ref(); // 文件上传实例
 const { formData, rules, initDetails, dataLoading, handleForm } = useForm();
 
 // 提交表单
-async function handleSubmit(formRef) {
+async function handleSubmit(formRef: FormInstance | undefined) {
   if (!formRef) return;
   await formRef.validate(valid => {
     if (valid) {
