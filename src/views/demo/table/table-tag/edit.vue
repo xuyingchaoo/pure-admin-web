@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-09 16:09:15
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-02-02 10:53:20
+ * @LastEditTime: 2023-02-07 09:34:41
  * @Descripttion: 
 -->
 <script setup lang="ts">
@@ -11,6 +11,9 @@ import { doAddUser, doEditUser } from "@/api/demo";
 import { message } from "@/utils/message";
 import { useCommon } from "@/utils/rzCommon";
 import { getUserDetails } from "@/api/demo";
+defineOptions({
+  name: "TableTagEdit"
+});
 const { formData, rules, dataLoading, handleForm } = useForm();
 const { handleCloseTag } = useCommon();
 const formRef = ref();
@@ -71,41 +74,58 @@ onMounted(() => {
       <template #content>
         <rz-title title="基本信息" />
         <el-form
-          class="rz-form rz-form-3"
+          class="rz-form"
           ref="formRef"
           :model="formData"
           :rules="rules"
           label-width="100px"
         >
-          <el-form-item label="人员名称" prop="username">
-            <el-input
-              v-model="formData.username"
-              placeholder="请输入人员名称"
-            />
-          </el-form-item>
-          <el-form-item label="性别" prop="sex">
-            <el-radio-group v-model="formData.sex">
-              <el-radio :label="1">男</el-radio>
-              <el-radio :label="2">女</el-radio>
-            </el-radio-group>
-          </el-form-item>
-          <el-form-item label="联系方式" prop="mobile">
-            <el-input v-model="formData.mobile" placeholder="请输入联系方式" />
-          </el-form-item>
-          <el-form-item label="角色" prop="roleIdList">
-            <role-select
-              placeholder="请选择角色"
-              v-model:roleValue="formData.roleIdList"
-            />
-          </el-form-item>
-          <el-form-item label="头像" prop="avatarUrl">
-            <rz-upload-img
-              ref="uploadImgRef"
-              :limit="1"
-              accept="image/*"
-              tip="注：只支持JPG、JPEG、PNG等图片格式"
-            />
-          </el-form-item>
+          <el-row>
+            <el-col :lg="8" :md="24">
+              <el-form-item label="人员名称" prop="username">
+                <el-input
+                  v-model="formData.username"
+                  placeholder="请输入人员名称"
+                />
+              </el-form-item>
+            </el-col>
+            <el-col :lg="8" :md="24">
+              <el-form-item label="性别" prop="sex">
+                <el-radio-group v-model="formData.sex">
+                  <el-radio :label="1">男</el-radio>
+                  <el-radio :label="2">女</el-radio>
+                </el-radio-group>
+              </el-form-item>
+            </el-col>
+            <el-col :lg="8" :md="24">
+              <el-form-item label="联系方式" prop="mobile">
+                <el-input
+                  v-model="formData.mobile"
+                  placeholder="请输入联系方式"
+                />
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :lg="8" :md="24">
+              <el-form-item label="角色" prop="roleIdList">
+                <role-select
+                  placeholder="请选择角色"
+                  v-model:roleValue="formData.roleIdList"
+                />
+              </el-form-item>
+            </el-col>
+            <el-col :lg="8" :md="24">
+              <el-form-item label="头像" prop="avatarUrl">
+                <rz-upload-img
+                  ref="uploadImgRef"
+                  :limit="1"
+                  accept="image/*"
+                  tip="注：只支持JPG、JPEG、PNG等图片格式"
+                />
+              </el-form-item>
+            </el-col>
+          </el-row>
         </el-form>
       </template>
       <template #btn>

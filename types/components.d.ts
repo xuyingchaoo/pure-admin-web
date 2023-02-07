@@ -7,6 +7,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    AreaSelect: typeof import('./../src/components/Select/AreaSelect/index.vue')['default']
     RoleSelect: typeof import('./../src/components/Select/RoleSelect/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

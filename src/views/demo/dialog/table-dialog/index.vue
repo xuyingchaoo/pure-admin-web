@@ -8,6 +8,9 @@
 <script setup lang="ts">
 import { FormInstance } from "element-plus";
 import { useColumns } from "./index";
+defineOptions({
+  name: "TableDialog"
+});
 const {
   onCurrentChange,
   onSizeChange,

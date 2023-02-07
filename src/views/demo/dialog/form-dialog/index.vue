@@ -2,13 +2,15 @@
  * @Author: xuyingchao
  * @Date: 2023-02-01 17:24:47
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-02-02 10:46:49
+ * @LastEditTime: 2023-02-06 16:46:57
  * @Descripttion: 
 -->
 <script setup lang="ts">
 import { FormInstance } from "element-plus";
 import { message } from "@/utils/message";
-
+defineOptions({
+  name: "FormDialog"
+});
 const formVisible = ref(false);
 const formData = reactive({
   name: "",

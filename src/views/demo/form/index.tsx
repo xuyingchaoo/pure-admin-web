@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-16 15:35:11
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-02-02 08:58:55
+ * @LastEditTime: 2023-02-06 16:31:41
  * @Descripttion:
  */
 import { isPhone } from "@pureadmin/utils";
@@ -18,7 +18,8 @@ export function useForm() {
     avatarUrl: [],
     content: "",
     videoUrl: [],
-    fileUrl: []
+    fileUrl: [],
+    areaIds: []
   });
   const validatePhone = (rule: any, value: any, callback: any) => {
     if (isPhone(formData.mobile)) {

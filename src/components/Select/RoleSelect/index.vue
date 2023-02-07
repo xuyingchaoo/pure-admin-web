@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-17 13:22:16
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-30 13:31:43
+ * @LastEditTime: 2023-02-06 16:17:59
  * @Descripttion: 
 -->
 <script setup lang="ts">
@@ -36,21 +36,19 @@ onBeforeMount(() => {
 });
 </script>
 <template>
-  <div>
-    <el-select
-      v-model="value"
-      :placeholder="props.placeholder"
-      @change="handleChange"
-      clearable
+  <el-select
+    v-model="value"
+    :placeholder="props.placeholder"
+    @change="handleChange"
+    clearable
+  >
+    <el-option
+      v-for="(item, index) in options"
+      :key="index"
+      :value="item.id"
+      :label="item.name"
     >
-      <el-option
-        v-for="(item, index) in options"
-        :key="index"
-        :value="item.id"
-        :label="item.name"
-      >
-        {{ item.name }}
-      </el-option>
-    </el-select>
-  </div>
+      {{ item.name }}
+    </el-option>
+  </el-select>
 </template>

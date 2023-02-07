@@ -11,6 +11,9 @@ import Details from "./details.vue";
 import Edit from "./edit.vue";
 const showType = ref(1);
 const query = ref({});
+defineOptions({
+  name: "TableInIndex"
+});
 </script>
 <template>
   <div>

@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-19 09:31:44
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-02-01 09:27:16
+ * @LastEditTime: 2023-02-07 11:54:15
  * @Descripttion: 
 -->
 <script setup lang="ts">
@@ -10,11 +10,11 @@ import { useCommon } from "@/utils/rzCommon";
 const { handleCloseTag } = useCommon();
 const props = defineProps({
   // 页面类型，列表页需要传入'list',其他详情页、编辑新增页可不传
-  type: {
-    require: false,
-    type: String,
-    default: ""
-  },
+  // type: {
+  //   require: false,
+  //   type: String,
+  //   default: ""
+  // },
   // 页面切换模式 1-标签页 2-内部
   openModel: {
     require: false,
@@ -48,7 +48,8 @@ function handleBack() {
 </script>
 
 <template>
-  <div :class="[type == 'list' ? 'rz-layout-list' : '', 'rz-layout']">
+  <!-- :class="[type == 'list' ? 'rz-layout-list' : '', 'rz-layout']" -->
+  <div class="rz-layout">
     <div
       class="layout-content"
       :style="{ paddingBottom: btnShow ? '99px' : '' }"
@@ -65,11 +66,9 @@ function handleBack() {
   </div>
 </template>
 <style lang="scss">
-.rz-layout-list.rz-layout {
-  width: 100%;
-}
 .rz-layout {
-  width: calc(100% - 40px);
+  // width: calc(100% - 40px);
+  width: 100%;
   height: 100%;
   min-height: 100%;
   display: flex;

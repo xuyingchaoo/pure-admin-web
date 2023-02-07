@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-09 16:09:15
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-02-02 09:56:49
+ * @LastEditTime: 2023-02-07 11:48:22
  * @Descripttion: 
 -->
 <script setup lang="ts">
@@ -20,6 +20,9 @@ import Filter from "@iconify-icons/ep/filter";
 import Download from "@iconify-icons/ep/download";
 import View from "@iconify-icons/ep/view";
 import { useColumns } from "./list";
+defineOptions({
+  name: "TableInList"
+});
 const {
   columns,
   searchForm,
@@ -67,7 +70,7 @@ function handleEdit(type, row) {
 }
 </script>
 <template>
-  <rz-layout type="list">
+  <rz-layout>
     <template #content>
       <el-card>
         <el-form

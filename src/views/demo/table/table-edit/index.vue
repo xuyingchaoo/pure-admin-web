@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-31 17:19:13
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-02-02 10:05:59
+ * @LastEditTime: 2023-02-07 13:09:47
  * @Descripttion: 
 -->
 <script setup lang="ts">
@@ -17,6 +17,9 @@ const { columns, tableRowClassName } = useEditColumns();
 const dataList = ref([]); // 表格数据
 const options = ref([]); // select下拉选择项
 const timeStr = ref(); // 时间戳刷新表格
+defineOptions({
+  name: "TableEdit"
+});
 // 选择框更新
 function handleUpdate(data) {
   console.log(data);
@@ -77,70 +80,66 @@ onBeforeMount(() => {
 });
 </script>
 <template>
-  <div>
-    <rz-layout type="list">
+  <el-card>
+    <rz-layout>
       <template #content>
-        <el-card class="flex-1">
-          <div class="table-add-row mb-4">
-            <el-button
-              type="primary"
-              :icon="useRenderIcon(AddFill)"
-              @click="handleAdd()"
-            >
-              新增
-            </el-button>
-          </div>
-          <pure-table
-            border
-            stripe
-            table-layout="auto"
-            row-key="id"
-            showOverflowTooltip
-            :data="dataList"
-            :columns="columns"
-            :key="timeStr"
-            :row-class-name="tableRowClassName"
-            header-row-class-name="rz-table-heard"
+        <div class="table-add-row mb-4">
+          <el-button
+            type="primary"
+            :icon="useRenderIcon(AddFill)"
+            @click="handleAdd()"
           >
-            <template #inputNumber="{ row }">
-              <rz-number-input
-                :defaultValue="row.number"
-                v-model:value="row.number"
-                :fixedMaxLen="2"
-                :max="1000"
-                :min="100"
-              />
-            </template>
-            <template #select="{ row, index }">
-              <rz-table-select
-                name="select"
-                :defaultValue="row.select"
-                v-model:value="row.select"
-                v-model:valueInfo="row.selectRow"
-                :options="options"
-                :index="index"
-                @update="handleUpdate"
-              />
-            </template>
-            <template #operation="{ index }">
-              <el-button
-                link
-                type="danger"
-                :icon="useRenderIcon(Delete)"
-                @click="handleDelete(index)"
-              >
-                删除
-              </el-button>
-            </template>
-          </pure-table>
-          <el-button class="mt-4" type="primary" @click="handleSubmit()">
-            提交
+            新增
           </el-button>
-          <div style="border: 1px solid #ccc; margin: 20px; padding: 20px">
-            {{ JSON.stringify(dataList) }}
-          </div>
-        </el-card>
+        </div>
+        <pure-table
+          border
+          stripe
+          table-layout="auto"
+          row-key="id"
+          showOverflowTooltip
+          :data="dataList"
+          :columns="columns"
+          :key="timeStr"
+          :row-class-name="tableRowClassName"
+          header-row-class-name="rz-table-heard"
+        >
+          <template #inputNumber="{ row }">
+            <rz-number-input
+              :defaultValue="row.number"
+              v-model:value="row.number"
+              :fixedMaxLen="2"
+              :max="1000"
+              :min="100"
+            />
+          </template>
+          <template #select="{ row, index }">
+            <rz-table-select
+              :defaultValue="row.select"
+              v-model:value="row.select"
+              v-model:valueInfo="row.selectRow"
+              :options="options"
+              @update="handleUpdate"
+            />
+          </template>
+          <template #operation="{ index }">
+            <el-button
+              link
+              type="danger"
+              :icon="useRenderIcon(Delete)"
+              @click="handleDelete(index)"
+            >
+              删除
+            </el-button>
+          </template>
+        </pure-table>
+        <el-button class="mt-4" type="primary" @click="handleSubmit()">
+          提交
+        </el-button>
+        <div style="border: 1px solid #ccc; margin: 20px; padding: 20px">
+          {{ JSON.stringify(dataList) }}
+        </div>
       </template>
     </rz-layout>
-  </div>
+  </el-card>
 </template>

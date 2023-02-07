@@ -2,11 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-09 15:06:15
  * @LastEditors: xuyingchao
-<<<<<<< HEAD
- * @LastEditTime: 2023-01-30 13:31:38
-=======
- * @LastEditTime: 2023-01-19 13:26:08
->>>>>>> xuyingchao
+ * @LastEditTime: 2023-02-07 08:54:57
  * @Descripttion:
  */
 import App from "./App.vue";
@@ -16,7 +12,7 @@ import ElementPlus from "element-plus";
 import { getServerConfig } from "./config";
 import { createApp, Directive } from "vue";
 import { MotionPlugin } from "@vueuse/motion";
-// import { useEcharts } from "@/plugins/echarts";
+import { useEcharts } from "@/plugins/echarts";
 import { injectResponsiveStorage } from "@/utils/responsive";
 
 import Table from "@pureadmin/table";
@@ -69,8 +65,7 @@ getServerConfig(app).then(async config => {
   await router.isReady();
   injectResponsiveStorage(app, config);
   setupStore(app);
-  app.use(MotionPlugin).use(ElementPlus).use(Table);
-  // .use(useEcharts);
+  app.use(MotionPlugin).use(ElementPlus).use(Table).use(useEcharts);
   // .use(PureDescriptions);
   app.mount("#app");
 });

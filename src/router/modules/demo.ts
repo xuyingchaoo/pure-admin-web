@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-10 09:58:55
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-02-02 10:51:33
+ * @LastEditTime: 2023-02-06 17:02:45
  * @Descripttion: 自定义demo静态路由
  */
 export default {
@@ -92,17 +92,17 @@ export default {
       }
     },
     {
-      path: "/demo/tableTag/details",
+      path: "/demo/table/tableTag/details",
       name: "人员详情",
-      component: () => import("@/views/demo/table-tag/details.vue"),
+      component: () => import("@/views/demo/table/table-tag/details.vue"),
       meta: {
         showLink: false
       }
     },
     {
-      path: "/demo/tableTag/edit",
+      path: "/demo/table/tableTag/edit",
       name: "人员编辑",
-      component: () => import("@/views/demo/table-tag/edit.vue"),
+      component: () => import("@/views/demo/table/table-tag/edit.vue"),
       meta: {
         title: "人员编辑",
         showLink: false

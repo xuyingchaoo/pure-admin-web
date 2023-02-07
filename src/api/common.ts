@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-13 10:34:59
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-16 17:31:27
+ * @LastEditTime: 2023-02-06 16:25:40
  * @Descripttion:
  */
 import { http } from "@/utils/http";
@@ -19,5 +19,12 @@ export const getTableList = (data?: any) => {
 export const doTableDelete = (data?: any) => {
   return http.request<any>("delete", baseUrlApi(data.url), {
     data: data.params
+  });
+};
+
+// 获取省市区级联
+export const getAreaTree = (data?: any) => {
+  return http.request<any>("get", baseUrlApi("regions/tree"), {
+    params: data?.params
   });
 };
