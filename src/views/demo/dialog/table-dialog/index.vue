@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-02-01 17:24:47
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-02-06 09:55:37
+ * @LastEditTime: 2023-02-09 11:20:17
  * @Descripttion: 
 -->
 <script setup lang="ts">
@@ -28,9 +28,9 @@ const {
 } = useColumns();
 const tableVisible = ref(false);
 const searchFormRef = ref<FormInstance>();
-const SEX_OPTIONS = [
-  { label: "男", value: 1 },
-  { label: "女", value: 2 }
+const STATUIS_OPTIONS = [
+  { label: "正常", value: 1 },
+  { label: "禁用", value: 0 }
 ];
 
 function openTableDialog() {
@@ -89,14 +89,14 @@ const resetForm = (formEl: FormInstance | undefined) => {
             clearable
           />
         </el-form-item>
-        <el-form-item prop="sex" class="!mr-3">
+        <el-form-item prop="status" class="!mr-3">
           <el-select
-            v-model="searchForm.sex"
-            placeholder="请选择性别"
+            v-model="searchForm.status"
+            placeholder="请选择状态"
             clearable
           >
             <el-option
-              v-for="(item, index) in SEX_OPTIONS"
+              v-for="(item, index) in STATUIS_OPTIONS"
               :key="index"
               :value="item.value"
               :label="item.label"

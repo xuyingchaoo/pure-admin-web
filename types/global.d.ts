@@ -251,4 +251,12 @@ declare global {
     $storage: ResponsiveStorage;
     $config: ServerConfigs;
   }
+  interface UserInfo {
+    createDate: string;
+    id: number;
+    mobile: string;
+    roleIdList: Array<number>;
+    status: number;
+    username: string;
+  }
 }

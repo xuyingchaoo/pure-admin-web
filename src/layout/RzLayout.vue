@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-19 09:31:44
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-02-07 11:54:15
+ * @LastEditTime: 2023-02-08 16:09:17
  * @Descripttion: 
 -->
 <script setup lang="ts">
@@ -66,6 +66,11 @@ function handleBack() {
   </div>
 </template>
 <style lang="scss">
+.el-card {
+  .rz-layout {
+    width: calc(100% - 40px);
+  }
+}
 .rz-layout {
   // width: calc(100% - 40px);
   width: 100%;

@@ -2,11 +2,10 @@
  * @Author: xuyingchao
  * @Date: 2023-02-02 09:47:28
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-02-06 09:54:44
+ * @LastEditTime: 2023-02-09 11:35:47
  * @Descripttion:
  */
-import { useDataList } from "@/mixins/data-list";
-import { resolve } from "path";
+import { useDataList } from "@/utils/data-list";
 const {
   getTableData,
   onSizeChange,
@@ -30,9 +29,9 @@ export function useColumns() {
       prop: "username"
     },
     {
-      label: "性别",
+      label: "状态",
       prop: "sex",
-      cellRenderer: ({ row }) => <div>{row.sex == 1 ? "男" : "女"}</div>
+      cellRenderer: ({ row }) => <div>{row.status == 1 ? "正常" : "禁用"}</div>
     },
     {
       label: "手机号",
@@ -46,7 +45,7 @@ export function useColumns() {
   const tableRef = ref();
   const searchForm = reactive({
     username: "",
-    sex: ""
+    status: ""
   });
   const multipleSelection = ref([]);
 

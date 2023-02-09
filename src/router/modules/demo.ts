@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-10 09:58:55
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-02-06 17:02:45
+ * @LastEditTime: 2023-02-08 15:41:23
  * @Descripttion: 自定义demo静态路由
  */
 export default {
@@ -19,7 +19,8 @@ export default {
       name: "DemoForm",
       component: () => import("@/views/demo/form/index.vue"),
       meta: {
-        title: "DemoForm"
+        title: "DemoForm",
+        keepAlive: true
       }
     },
     {
@@ -32,7 +33,7 @@ export default {
       children: [
         {
           path: "/demo/form-dialog",
-          name: "表单弹窗",
+          name: "FormDialog",
           component: () => import("@/views/demo/dialog/form-dialog/index.vue"),
           meta: {
             title: "表单弹窗"
@@ -40,7 +41,7 @@ export default {
         },
         {
           path: "/demo/table-dialog",
-          name: "表格搜索弹窗",
+          name: "TableDialog",
           component: () => import("@/views/demo/dialog/table-dialog/index.vue"),
           meta: {
             title: "表格搜索弹窗"
@@ -93,15 +94,16 @@ export default {
     },
     {
       path: "/demo/table/tableTag/details",
-      name: "人员详情",
+      name: "TableTagDetails",
       component: () => import("@/views/demo/table/table-tag/details.vue"),
       meta: {
+        title: "人员详情",
         showLink: false
       }
     },
     {
       path: "/demo/table/tableTag/edit",
-      name: "人员编辑",
+      name: "TableTagEdit",
       component: () => import("@/views/demo/table/table-tag/edit.vue"),
       meta: {
         title: "人员编辑",

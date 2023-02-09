@@ -2,14 +2,14 @@
  * @Author: xuyingchao
  * @Date: 2023-01-09 16:09:15
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-02-07 09:29:40
+ * @LastEditTime: 2023-02-09 11:06:37
  * @Descripttion: 
 -->
 <script setup lang="ts">
 import { FormInstance } from "element-plus";
 import { useForm } from "./index";
 defineOptions({
-  name: "Form"
+  name: "DemoForm"
 });
 const formRef = ref<FormInstance>();
 const rzEditorRef = ref(); // editor实例
@@ -42,8 +42,8 @@ async function handleSubmit(formRef: FormInstance | undefined) {
 onMounted(() => {
   initDetails();
   // 默认赋值
-  formData.roleIdList = [2];
-  formData.areaIds = [140000000000, 140300000000, 140311000000, 140311103000];
+  formData.roleIdList = [1];
+  formData.areaIds = [18, 19];
   areaSelectRef.value.init(formData.areaIds);
   nextTick(() => {
     rzEditorRef.value.init("<p>123</p>");

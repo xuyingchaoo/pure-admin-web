@@ -11,8 +11,9 @@ import {
 } from "./types.d";
 import { stringify } from "qs";
 import NProgress from "../progress";
-import { getToken, formatToken } from "@/utils/auth";
+import { getToken, formatToken, clearAndOut } from "@/utils/auth";
 import { useUserStoreHook } from "@/store/modules/user";
+import { message } from "@/utils/message";
 
 // 相关配置请参考：www.axios-js.com/zh-cn/docs/#axios-request-config-1
 const defaultConfig: AxiosRequestConfig = {
@@ -78,6 +79,7 @@ class PureHttp {
           ? config
           : new Promise(resolve => {
               const data = getToken();
+              console.log(data);
               if (data) {
                 const now = new Date().getTime();
                 const expired = parseInt(data.expires) - now <= 0;
@@ -89,7 +91,8 @@ class PureHttp {
                       .handRefreshToken({ refreshToken: data.refreshToken })
                       .then(res => {
                         const token = res.data.accessToken;
-                        config.headers["Authorization"] = formatToken(token);
+                        // config.headers["Authorization"] = formatToken(token);
+                        config.headers["token"] = token;
                         PureHttp.requests.forEach(cb => cb(token));
                         PureHttp.requests = [];
                       })
@@ -164,8 +167,22 @@ class PureHttp {
     return new Promise((resolve, reject) => {
       PureHttp.axiosInstance
         .request(config)
-        .then((response: undefined) => {
-          resolve(response);
+        .then((response: any) => {
+          if (response.code == 500) {
+            message(`${response.msg}`, {
+              type: "warning"
+            });
+            reject(response);
+          } else if (response.code == 401) {
+            message(`${response.msg}`, {
+              type: "warning"
+            });
+            // 清空用户信息等 并且 退到登陆页
+            clearAndOut();
+            reject(response);
+          } else {
+            resolve(response);
+          }
         })
         .catch(error => {
           reject(error);

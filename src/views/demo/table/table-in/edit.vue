@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-09 16:09:15
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-02-07 09:33:38
+ * @LastEditTime: 2023-02-09 11:36:26
  * @Descripttion: 
 -->
 <script setup lang="ts">
@@ -15,7 +15,6 @@ defineOptions({
 });
 const { formData, rules, dataLoading, handleForm } = useForm();
 const formRef = ref();
-const uploadImgRef = ref();
 const props = defineProps({
   showType: {
     require: true,
@@ -35,7 +34,6 @@ async function handleSubmit(formRef) {
   if (!formRef) return;
   await formRef.validate(valid => {
     if (valid) {
-      formData.avatarUrl = uploadImgRef.value.fileList;
       const form = handleForm(formData);
       dataLoading.value = true;
       const handleFuntion = form.id ? doEditUser : doAddUser;
@@ -61,14 +59,12 @@ function initDetails() {
   if (id) {
     getUserDetails({ id }).then(res => {
       if (res.code == 0) {
-        const { avatarUrl, username, sex, mobile, roleIdList, id } = res.data;
+        const { username, status, mobile, roleIdList, id } = res.data;
         formData.id = id;
-        formData.avatarUrl = avatarUrl ? [{ url: avatarUrl }] : [];
         formData.username = username;
-        formData.sex = sex;
+        formData.status = status;
         formData.mobile = mobile;
         formData.roleIdList = roleIdList;
-        uploadImgRef.value.fileList = formData.avatarUrl;
       }
     });
   }
@@ -104,10 +100,10 @@ onMounted(() => {
               </el-form-item>
             </el-col>
             <el-col :lg="8" :md="24">
-              <el-form-item label="性别" prop="sex">
-                <el-radio-group v-model="formData.sex">
-                  <el-radio :label="1">男</el-radio>
-                  <el-radio :label="2">女</el-radio>
+              <el-form-item label="状态" prop="status">
+                <el-radio-group v-model="formData.status">
+                  <el-radio :label="1">正常</el-radio>
+                  <el-radio :label="0">禁用</el-radio>
                 </el-radio-group>
               </el-form-item>
             </el-col>
@@ -126,16 +122,6 @@ onMounted(() => {
                 <role-select
                   placeholder="请选择角色"
                   v-model:roleValue="formData.roleIdList"
-                />
-              </el-form-item>
-            </el-col>
-            <el-col :lg="8" :md="24">
-              <el-form-item label="头像" prop="avatarUrl">
-                <rz-upload-img
-                  ref="uploadImgRef"
-                  :limit="1"
-                  accept="image/*"
-                  tip="注：只支持JPG、JPEG、PNG等图片格式"
                 />
               </el-form-item>
             </el-col>

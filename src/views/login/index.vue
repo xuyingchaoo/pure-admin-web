@@ -44,7 +44,8 @@ const onLogin = async (formEl: FormInstance | undefined) => {
       useUserStoreHook()
         .loginByUsername({
           mobile: ruleForm.mobile,
-          password: ruleForm.password
+          password: ruleForm.password,
+          device: 1
         })
         .then(res => {
           if (res.success) {

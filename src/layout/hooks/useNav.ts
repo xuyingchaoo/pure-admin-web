@@ -24,7 +24,10 @@ export function useNav() {
   const username = computed(() => {
     return useUserStoreHook()?.username;
   });
-
+  /** 用户名 */
+  const userInfo = computed(() => {
+    return useUserStoreHook()?.userInfo;
+  });
   const avatarsStyle = computed(() => {
     return username.value ? { marginRight: "10px" } : "";
   });
@@ -138,6 +141,7 @@ export function useNav() {
     isCollapse,
     pureApp,
     username,
+    userInfo,
     avatarsStyle,
     tooltipEffect
   };

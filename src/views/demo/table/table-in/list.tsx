@@ -2,10 +2,10 @@
  * @Author: xuyingchao
  * @Date: 2023-01-10 13:49:58
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-02-01 09:14:27
+ * @LastEditTime: 2023-02-09 11:27:20
  * @Descripttion:
  */
-import { useDataList } from "@/mixins/data-list";
+import { useDataList } from "@/utils/data-list";
 const {
   getTableData,
   onCurrentChange,
@@ -26,16 +26,9 @@ export function useColumns() {
       prop: "username"
     },
     {
-      label: "头像",
-      prop: "avatarUrl",
-      cellRenderer: ({ row }) => (
-        <el-avatar size={40} fit="cover" src={row.avatarUrl} />
-      )
-    },
-    {
-      label: "性别",
-      prop: "sex",
-      cellRenderer: ({ row }) => <div>{row.sex == 1 ? "男" : "女"}</div>
+      label: "状态",
+      prop: "status",
+      cellRenderer: ({ row }) => <div>{row.status == 1 ? "正常" : "禁用"}</div>
     },
     {
       label: "手机号",
@@ -52,7 +45,7 @@ export function useColumns() {
   ];
   const searchForm = reactive({
     username: "",
-    sex: "",
+    status: "",
     mobile: "",
     orderField: "create_date",
     order: "desc"

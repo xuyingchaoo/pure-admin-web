@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-09 16:09:15
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-02-07 11:45:40
+ * @LastEditTime: 2023-02-09 11:30:46
  * @Descripttion: 
 -->
 <script setup lang="ts">
@@ -28,19 +28,20 @@ const { handleRouter } = useCommon();
 const {
   columns,
   searchForm,
+  pagination,
+  dataList,
+  loading,
   onCurrentChange,
   onSizeChange,
   resetForm,
   onSearch,
   handleExportOut,
-  handleDelete,
-  pagination,
-  dataList,
-  loading
+  handleDelete
 } = useColumns();
 
 // 表单实例
 const searchFormRef = ref();
+// 侧边搜索表单实例
 const drawerFormRef = ref();
 // 抽屉显隐
 const showDrawer = ref(false);
@@ -49,25 +50,12 @@ const showDrawer = ref(false);
 function handleDrawer() {
   showDrawer.value = true;
 }
-// 1新增 2编辑 3详情
-function handleEdit(type, row) {
+function handleEdit(name, row) {
   let query = {};
   if (row) {
     query = { id: row.id };
   }
-  if (type == 3) {
-    handleRouter({
-      path: "/demo/table/tableTag/details",
-      name: "人员详情",
-      query
-    });
-  } else {
-    handleRouter({
-      path: "/demo/table/tableTag/edit",
-      name: "人员编辑",
-      query
-    });
-  }
+  handleRouter(name, query);
 }
 </script>
 <template>
@@ -97,15 +85,15 @@ function handleEdit(type, row) {
                 class="!w-[160px]"
               />
             </el-form-item>
-            <el-form-item prop="sex">
+            <el-form-item prop="status">
               <el-select
-                v-model="searchForm.sex"
-                placeholder="请选择性别"
+                v-model="searchForm.status"
+                placeholder="请选择状态"
                 clearable
                 class="!w-[160px]"
               >
-                <el-option label="男" value="1" />
-                <el-option label="女" value="2" />
+                <el-option label="正常" value="1" />
+                <el-option label="禁用" value="0" />
               </el-select>
             </el-form-item>
             <el-form-item class="search-form-btn !w-[270px] min-w-max">
@@ -135,7 +123,7 @@ function handleEdit(type, row) {
               <el-button
                 type="primary"
                 :icon="useRenderIcon(AddFill)"
-                @click="handleEdit(1, {})"
+                @click="handleEdit('TableTagEdit', {})"
               >
                 新增
               </el-button>
@@ -165,14 +153,14 @@ function handleEdit(type, row) {
               >
                 <template #operation="{ row }">
                   <el-button
-                    @click="handleEdit(3, row)"
+                    @click="handleEdit('TableTagDetails', row)"
                     link
                     type="primary"
                     :icon="useRenderIcon(View)"
                     >查看
                   </el-button>
                   <el-button
-                    @click="handleEdit(2, row)"
+                    @click="handleEdit('TableTagEdit', row)"
                     link
                     type="primary"
                     :icon="useRenderIcon(EditPen)"
@@ -258,14 +246,15 @@ function handleEdit(type, row) {
                   clearable
                 />
               </el-form-item>
-              <el-form-item prop="sex">
+              <el-form-item prop="status">
                 <el-select
-                  v-model="searchForm.sex"
-                  placeholder="请选择性别"
+                  v-model="searchForm.status"
+                  placeholder="请选择状态"
                   clearable
+                  class="!w-[160px]"
                 >
-                  <el-option label="男" value="1" />
-                  <el-option label="女" value="2" />
+                  <el-option label="正常" value="1" />
+                  <el-option label="禁用" value="0" />
                 </el-select>
               </el-form-item>
             </el-form>

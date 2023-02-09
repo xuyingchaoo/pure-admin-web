@@ -2,13 +2,14 @@
  * @Author: xuyingchao
  * @Date: 2023-01-05 14:40:55
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-29 14:21:47
+ * @LastEditTime: 2023-02-09 10:47:41
  * @Descripttion:
  */
 import Cookies from "js-cookie";
-import { storageSession } from "@pureadmin/utils";
+import { storageSession, storageLocal } from "@pureadmin/utils";
 import { useUserStoreHook } from "@/store/modules/user";
 import { getUserInfo } from "@/api/login";
+import { router } from "@/router";
 
 export interface DataInfo<T> {
   /** token */
@@ -22,7 +23,6 @@ export interface DataInfo<T> {
   /** 当前登陆用户的角色 */
   roles?: Array<string>;
 }
-
 export const sessionKey = "user-info";
 export const TokenKey = "authorized-token";
 
@@ -75,23 +75,27 @@ export function setToken(data: DataInfo<Date>) {
   }
 }
 
+// 当前token设置
 export function setTokenNew(data) {
   return new Promise(resolve => {
     const { token } = data;
-    Cookies.set(TokenKey, JSON.stringify({ accessToken: token }));
-    function setSessionKey(username: string, roles: Array<string>) {
-      useUserStoreHook().SET_USERNAME(username);
-      useUserStoreHook().SET_ROLES(roles);
+    const expire = new Date(data.expire).getTime();
+    const cookieString = JSON.stringify({ accessToken: token });
+    Cookies.set(TokenKey, cookieString);
+    function setSessionKey(info: UserInfo) {
+      useUserStoreHook().SET_USERNAME(info.username);
+      useUserStoreHook().SET_USERINFO(info);
       storageSession().setItem(sessionKey, {
-        username,
-        roles
+        username: info.username,
+        roles: info.roleIdList,
+        expire
       });
     }
     if (token) {
+      // 获取用户信息 并存储
       getUserInfo().then(res => {
         if (res.code == 0) {
-          const { username } = res.data;
-          setSessionKey(username, ["admin"]);
+          setSessionKey(res.data);
           resolve(res);
         }
       });
@@ -109,3 +113,10 @@ export function removeToken() {
 export const formatToken = (token: string): string => {
   return "Bearer " + token;
 };
+
+export function clearAndOut() {
+  removeToken();
+  storageLocal().clear();
+  storageSession().clear();
+  router.push("/login");
+}

@@ -22,6 +22,8 @@ import { getConfig } from "@/config";
 import { buildHierarchyTree } from "@/utils/tree";
 import { sessionKey, type DataInfo } from "@/utils/auth";
 import { usePermissionStoreHook } from "@/store/modules/permission";
+// import { message } from "@/utils/message";
+
 const IFrame = () => import("@/layout/frameView.vue");
 // https://cn.vitejs.dev/guide/features.html#glob-import
 const modulesRoutes = import.meta.glob("/src/views/**/*.{vue,tsx}");
@@ -213,88 +215,65 @@ function initRouter() {
       });
     }
   } else {
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       // getAsyncRoutes().then(({ data }) => {
-      getMenu({ device: 1 }).then(({ data }) => {
-        const { menuList } = data;
-        data = [
-          {
-            path: "/permission",
-            meta: {
-              title: "权限管理",
-              icon: "lollipop",
-              rank: 10
-            },
-            children: [
-              {
-                path: "/permission/page/index",
-                name: "PermissionPage",
-                meta: {
-                  title: "页面权限",
-                  roles: ["admin", "common"]
-                }
-              },
-              {
-                path: "/permission/button/index",
-                name: "PermissionButton",
-                meta: {
-                  title: "按钮权限",
-                  roles: ["admin", "common"],
-                  auths: ["btn_add", "btn_edit", "btn_delete"]
-                }
-              }
-            ]
-          }
-        ].concat(handleMenu(menuList));
-        handleAsyncRoutes(cloneDeep(data));
-        resolve(router);
+      getMenu({ device: 1 }).then(res => {
+        if (res.code == 0) {
+          const { menuList, permissions } = res.data;
+          handleAsyncRoutes(cloneDeep(menuList));
+          usePermissionStoreHook().SET_PERMISSIONS(permissions);
+          resolve(router);
+        } else {
+          reject(res);
+        }
       });
     });
   }
 }
-
-function handleMenu(menuList) {
-  const newMenuList = [];
-  menuList.forEach(item => {
-    const urlName = item.url
-      ? item.url.split("/")
-      : item.childList[0].url.split("/");
-    const parentMenu = {
-      path: "/" + urlName[1],
-      meta: {
-        title: item.name,
-        icon: "lollipop",
-        rank: 10
-      },
-      children: []
-    };
-    if (item.childList && item.childList.length) {
-      item.childList.forEach(cItem => {
-        parentMenu.children.push({
-          path: cItem.url,
-          name: cItem.name,
-          meta: {
-            title: cItem.name,
-            roles: ["admin", "common"],
-            auths: []
-          }
-        });
-      });
-    } else {
-      parentMenu.children.push({
-        path: parentMenu.path,
-        name: parentMenu.meta.title,
-        meta: {
-          title: parentMenu.meta.title,
-          roles: ["admin", "common"],
-          auths: []
-        }
-      });
-    }
-    newMenuList.push(parentMenu);
-  });
-  return newMenuList;
-}
+// 处理目前后端返回路由格式 返回“一码砂石”菜单结构
+// 如果后续后端调整返回格式 可以不处理 或者调整处理方式
+// function handleMenu(menuList) {
+//   const newMenuList = [];
+//   menuList.forEach(item => {
+//     const urlName = item.url
+//       ? item.url.split("/")
+//       : item.childList[0].url.split("/");
+//     const parentMenu = {
+//       path: "/" + urlName[1],
+//       meta: {
+//         title: item.name,
+//         icon: "lollipop",
+//         rank: 10
+//       },
+//       children: []
+//     };
+//     if (item.childList && item.childList.length) {
+//       item.childList.forEach(cItem => {
+//         parentMenu.children.push({
+//           path: cItem.url,
+//           name: cItem.name,
+//           meta: {
+//             title: cItem.name,
+//             roles: ["admin", "common"],
+//             auths: []
+//           }
+//         });
+//       });
+//     } else {
+//       parentMenu.children.push({
+//         path: parentMenu.path,
+//         name: parentMenu.meta.title,
+//         meta: {
+//           title: parentMenu.meta.title,
+//           roles: ["admin", "common"],
+//           auths: []
+//         }
+//       });
+//     }
+//     newMenuList.push(parentMenu);
+//   });
+//   return newMenuList;
+// }
 
 /**
  * 将多级嵌套路由处理成一维数组

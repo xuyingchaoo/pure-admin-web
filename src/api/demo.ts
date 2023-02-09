@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-10 10:26:48
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-29 15:47:11
+ * @LastEditTime: 2023-02-09 11:18:50
  * @Descripttion:
  */
 import { http } from "@/utils/http";
@@ -11,12 +11,10 @@ import { baseUrlApi } from "./utils";
 export const getUserList = (params?: object) => {
   return http.request<any>("get", baseUrlApi("sys/user/page"), { params });
 };
-
 /** 获取人员角色列表 */
 export const getRoleSelect = (params?: object) => {
   return http.request<any>("get", baseUrlApi("sys/role/select"), { params });
 };
-
 /** 人员新增 */
 export const doAddUser = (data?: object) => {
   return http.request<any>("post", baseUrlApi("sys/user/create"), { data });

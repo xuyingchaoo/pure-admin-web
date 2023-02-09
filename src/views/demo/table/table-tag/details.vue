@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-10 14:52:11
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-02-07 09:28:34
+ * @LastEditTime: 2023-02-09 11:41:48
  * @Descripttion: 
 -->
 <script setup lang="ts">
@@ -12,6 +12,7 @@ defineOptions({
 });
 const dataLoading = ref(false);
 const formData = <any>ref({});
+
 // 请求详情
 function initDetails() {
   const route = useRoute();
@@ -42,8 +43,8 @@ onMounted(() => {
               <div>{{ formData.username }}</div>
             </el-col>
             <el-col class="details-row" :lg="8" :md="24">
-              <label>性别</label>
-              <div>{{ formData.sex == 1 ? "男" : "女" }}</div>
+              <label>状态</label>
+              <div>{{ formData.status == 1 ? "正常" : "禁用" }}</div>
             </el-col>
             <el-col class="details-row" :lg="8" :md="24">
               <label>联系方式</label>
@@ -55,12 +56,6 @@ onMounted(() => {
               <label>角色</label>
               <div>
                 {{ formData.roleNameList ? formData.roleNameList[0] : "-" }}
-              </div>
-            </el-col>
-            <el-col class="details-row" :lg="8" :md="24">
-              <label>头像</label>
-              <div>
-                <el-avatar fit="cover" :size="80" :src="formData.avatarUrl" />
               </div>
             </el-col>
           </el-row>

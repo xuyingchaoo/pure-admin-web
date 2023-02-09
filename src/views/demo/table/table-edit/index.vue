@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-31 17:19:13
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-02-07 13:09:47
+ * @LastEditTime: 2023-02-07 14:12:00
  * @Descripttion: 
 -->
 <script setup lang="ts">
@@ -113,7 +113,7 @@ onBeforeMount(() => {
               :min="100"
             />
           </template>
-          <template #select="{ row, index }">
+          <template #select="{ row }">
             <rz-table-select
               :defaultValue="row.select"
               v-model:value="row.select"

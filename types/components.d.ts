@@ -14,13 +14,9 @@ declare module '@vue/runtime-core' {
     RzDrawer: typeof import('./../src/components/RzCommon/RzDrawer/index.vue')['default']
     RzEditor: typeof import('./../src/components/RzCommon/RzEditor/index.vue')['default']
     RzNumberInput: typeof import('./../src/components/RzCommon/RzNumberInput/index.vue')['default']
-    RzSelectInput: typeof import('./../src/components/RzCommon/RzSelectInput/index.vue')['default']
-    RzTableNumberInput: typeof import('./../src/components/RzCommon/RzTableNumberInput/index.vue')['default']
     RzTableSelect: typeof import('./../src/components/RzCommon/RzTableSelect/index.vue')['default']
     RzTitle: typeof import('./../src/components/RzCommon/RzTitle/index.vue')['default']
-    RzUpload: typeof import('./../src/components/RzCommon/RzUpload/index.vue')['default']
     RzUploadFile: typeof import('./../src/components/RzCommon/RzUploadFile/index.vue')['default']
     RzUploadImg: typeof import('./../src/components/RzCommon/RzUploadImg/index.vue')['default']
-    RzUploadVideo: typeof import('./../src/components/RzCommon/RzUploadVideo/index.vue')['default']
   }
 }

@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-28 14:35:21
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-31 16:27:32
+ * @LastEditTime: 2023-02-09 11:11:34
  * @Descripttion: 上传图片组件 支持预览
 -->
 <script setup lang="ts">
@@ -57,6 +57,7 @@ function uploadFileSuccess(response, file, list) {
       fileList.value[i].url = response.data;
     }
   });
+  console.log("上传成功");
 }
 // 上传文件之前校验格式和大小
 function uploadBefore(file) {

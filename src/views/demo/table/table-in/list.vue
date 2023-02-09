@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-09 16:09:15
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-02-07 11:48:22
+ * @LastEditTime: 2023-02-09 11:30:55
  * @Descripttion: 
 -->
 <script setup lang="ts">
@@ -95,15 +95,15 @@ function handleEdit(type, row) {
               class="!w-[160px]"
             />
           </el-form-item>
-          <el-form-item prop="sex">
+          <el-form-item prop="status">
             <el-select
-              v-model="searchForm.sex"
-              placeholder="请选择性别"
+              v-model="searchForm.status"
+              placeholder="请选择状态"
               clearable
               class="!w-[160px]"
             >
-              <el-option label="男" value="1" />
-              <el-option label="女" value="2" />
+              <el-option label="正常" value="1" />
+              <el-option label="禁用" value="0" />
             </el-select>
           </el-form-item>
           <el-form-item class="search-form-btn !w-[270px] min-w-max">
@@ -258,12 +258,13 @@ function handleEdit(type, row) {
             </el-form-item>
             <el-form-item prop="sex">
               <el-select
-                v-model="searchForm.sex"
-                placeholder="请选择性别"
+                v-model="searchForm.status"
+                placeholder="请选择状态"
                 clearable
+                class="!w-[160px]"
               >
-                <el-option label="男" value="1" />
-                <el-option label="女" value="2" />
+                <el-option label="正常" value="1" />
+                <el-option label="禁用" value="0" />
               </el-select>
             </el-form-item>
           </el-form>

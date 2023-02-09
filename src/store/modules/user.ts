@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-05 14:40:55
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-11 13:05:44
+ * @LastEditTime: 2023-02-09 10:35:11
  * @Descripttion:
  */
 import { defineStore } from "pinia";
@@ -12,7 +12,6 @@ import { routerArrays } from "@/layout/types";
 import { router, resetRouter } from "@/router";
 import { storageSession } from "@pureadmin/utils";
 import { refreshTokenApi } from "@/api/user";
-// getLogin
 import { UserResult, RefreshTokenResult } from "@/api/user";
 import { useMultiTagsStoreHook } from "@/store/modules/multiTags";
 import {
@@ -26,13 +25,19 @@ import { doLogin } from "@/api/login";
 
 export const useUserStore = defineStore({
   id: "pure-user",
+
   state: (): userType => ({
     // 用户名
     username:
       storageSession().getItem<DataInfo<number>>(sessionKey)?.username ?? "",
     // 页面级别权限
-    roles: storageSession().getItem<DataInfo<number>>(sessionKey)?.roles ?? []
+    roles: storageSession().getItem<DataInfo<number>>(sessionKey)?.roles ?? [],
+    userInfo: {}
   }),
+  // true: 开启数据持久化
+  persist: {
+    key: "user"
+  },
   actions: {
     /** 存储用户名 */
     SET_USERNAME(username: string) {
@@ -42,17 +47,20 @@ export const useUserStore = defineStore({
     SET_ROLES(roles: Array<string>) {
       this.roles = roles;
     },
+    // 存储用户信息
+    SET_USERINFO(userInfo: UserInfo) {
+      this.userInfo = userInfo;
+    },
     /** 登入 */
     async loginByUsername(data) {
       return new Promise<UserResult>((resolve, reject) => {
         doLogin(data)
           .then(data => {
-            if (data) {
-              // setToken(data.data);
-              setTokenNew(data.data).then(() => {
-                resolve(data);
-              });
-            }
+            console.log(data);
+            // setToken(data.data);
+            setTokenNew(data.data).then(() => {
+              resolve(data);
+            });
           })
           .catch(error => {
             reject(error);

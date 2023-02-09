@@ -1,3 +1,10 @@
+/*
+ * @Author: xuyingchao
+ * @Date: 2023-01-09 15:06:15
+ * @LastEditors: xuyingchao
+ * @LastEditTime: 2023-02-07 16:39:38
+ * @Descripttion:
+ */
 const Layout = () => import("@/layout/index.vue");
 
 export default [

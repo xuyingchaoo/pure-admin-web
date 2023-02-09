@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-16 15:35:11
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-31 16:11:27
+ * @LastEditTime: 2023-02-09 11:32:20
  * @Descripttion:
  */
 import { isPhone } from "@pureadmin/utils";
@@ -11,10 +11,9 @@ export function useForm() {
   const formData = reactive({
     id: "",
     username: "",
-    sex: 1,
+    status: 1,
     mobile: "",
-    roleIdList: [],
-    avatarUrl: []
+    roleIdList: []
   });
   const validatePhone = (rule: any, value: any, callback: any) => {
     if (isPhone(formData.mobile)) {
@@ -25,7 +24,6 @@ export function useForm() {
   };
   const rules = {
     username: [{ required: true, message: "请输入人员名称", trigger: "blur" }],
-    sex: [{ required: true, message: "请选择性别", trigger: "change" }],
     mobile: [
       {
         required: true,
@@ -42,12 +40,8 @@ export function useForm() {
   const dataLoading = ref(false);
   // 处理数据
   const handleForm = (formData: any) => {
-    const { avatarUrl } = formData,
-      form = cloneDeep(formData);
-    form.avatarUrl = avatarUrl[0]?.url;
-    // 数据造假
-    const form2 = { corpId: 6, userMenuDoList: [], belong: 1 };
-    return { ...form, ...form2 };
+    const form = cloneDeep(formData);
+    return form;
   };
 
   return { dataLoading, formData, rules, handleForm };
