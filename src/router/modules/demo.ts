@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-10 09:58:55
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-02-08 15:41:23
+ * @LastEditTime: 2023-02-09 15:04:05
  * @Descripttion: 自定义demo静态路由
  */
 export default {

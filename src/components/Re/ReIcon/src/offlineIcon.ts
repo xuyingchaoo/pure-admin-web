@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-09 15:06:15
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-30 09:54:55
+ * @LastEditTime: 2023-02-09 16:53:47
  * @Descripttion:
  */
 import { addIcon } from "@iconify/vue/dist/offline";
@@ -16,8 +16,10 @@ import HomeFilled from "@iconify-icons/ep/home-filled";
 import InformationLine from "@iconify-icons/ri/information-line";
 import Lollipop from "@iconify-icons/ep/lollipop";
 import Search from "@iconify-icons/ep/search";
+import ToolsIcon from "@iconify-icons/ep/tools";
 
 addIcon("homeFilled", HomeFilled);
 addIcon("informationLine", InformationLine);
 addIcon("lollipop", Lollipop);
 addIcon("Search", Search);
+addIcon("ToolsIcon", ToolsIcon);

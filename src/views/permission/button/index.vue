@@ -2,14 +2,14 @@
  * @Author: xuyingchao
  * @Date: 2023-01-09 15:06:15
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-01-16 13:46:15
+ * @LastEditTime: 2023-02-09 16:28:14
  * @Descripttion: 
 -->
 <script setup lang="ts">
 import { hasAuth, getAuths } from "@/router/utils";
 
 defineOptions({
-  name: "PermissionButton"
+  name: "PermissionBtn"
 });
 
 const elStyle = computed((): CSSProperties => {

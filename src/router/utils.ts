@@ -33,7 +33,7 @@ import { getAsyncRoutes } from "@/api/routes";
 import { getMenu } from "@/api/login";
 
 function handRank(routeInfo: any) {
-  const { name, path, parentId, meta } = routeInfo;
+  const { name, path, parentId, meta } = routeInfo || {};
   return isAllEmpty(parentId)
     ? isAllEmpty(meta?.rank) ||
       (meta?.rank === 0 && name !== "Home" && path !== "/")

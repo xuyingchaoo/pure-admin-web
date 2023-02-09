@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-09 16:09:15
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-02-09 11:30:55
+ * @LastEditTime: 2023-02-09 17:37:51
  * @Descripttion: 
 -->
 <script setup lang="ts">
@@ -46,6 +46,7 @@ const props = defineProps({
     type: Object as any
   }
 });
+console.log(props);
 const emit = defineEmits(["update:showType", "update:query"]);
 // 表单实例
 const searchFormRef = ref();
