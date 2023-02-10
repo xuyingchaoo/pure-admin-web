@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-17 13:22:16
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-02-08 10:36:40
+ * @LastEditTime: 2023-02-10 14:40:31
  * @Descripttion: 
 -->
 <script setup lang="ts">
@@ -12,21 +12,31 @@ const value = ref();
 const props = defineProps({
   placeholder: {
     require: false,
-    type: String
+    type: String,
+    default: "请选择角色"
   },
   roleValue: {
     require: false,
     type: Array
+  },
+  multiple: {
+    require: false,
+    type: Boolean,
+    default: false
   }
 });
 const emit = defineEmits(["update:roleValue"]);
 function handleChange(e) {
-  emit("update:roleValue", [e]);
+  emit("update:roleValue", e);
 }
-// 编辑时候赋值
-onUpdated(() => {
-  value.value = props.roleValue[0];
+// 对外暴露的属性
+defineExpose({
+  value
 });
+// 编辑时候赋值
+// onUpdated(() => {
+//   value.value = props.roleValue;
+// });
 onBeforeMount(() => {
   getRoleSelect().then(res => {
     if (res.code == 0) {
@@ -38,8 +48,9 @@ onBeforeMount(() => {
 <template>
   <el-select
     v-model="value"
-    :placeholder="props.placeholder"
+    :placeholder="placeholder"
     @change="handleChange"
+    :multiple="multiple"
     clearable
   >
     <el-option

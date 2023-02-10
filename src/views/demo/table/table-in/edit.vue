@@ -2,19 +2,23 @@
  * @Author: xuyingchao
  * @Date: 2023-01-09 16:09:15
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-02-09 11:36:26
+ * @LastEditTime: 2023-02-10 16:52:21
  * @Descripttion: 
 -->
 <script setup lang="ts">
-import { useForm } from "./edit";
+import { useForm } from "./types/edit";
 import { doAddUser, doEditUser } from "@/api/demo";
 import { message } from "@/utils/message";
 import { getUserDetails } from "@/api/demo";
+import { cloneDeep } from "@pureadmin/utils";
+
 defineOptions({
   name: "TableInEdit"
 });
-const { formData, rules, dataLoading, handleForm } = useForm();
+const { formData, rules, dataLoading } = useForm();
 const formRef = ref();
+const roleSelectRef = ref();
+
 const props = defineProps({
   showType: {
     require: true,
@@ -34,7 +38,7 @@ async function handleSubmit(formRef) {
   if (!formRef) return;
   await formRef.validate(valid => {
     if (valid) {
-      const form = handleForm(formData);
+      const form = cloneDeep(formData);
       dataLoading.value = true;
       const handleFuntion = form.id ? doEditUser : doAddUser;
       handleFuntion(form).then(res => {
@@ -65,6 +69,7 @@ function initDetails() {
         formData.status = status;
         formData.mobile = mobile;
         formData.roleIdList = roleIdList;
+        roleSelectRef.value.value = roleIdList;
       }
     });
   }
@@ -120,8 +125,10 @@ onMounted(() => {
             <el-col :lg="8" :md="24">
               <el-form-item label="角色" prop="roleIdList">
                 <role-select
+                  ref="roleSelectRef"
                   placeholder="请选择角色"
                   v-model:roleValue="formData.roleIdList"
+                  :multiple="true"
                 />
               </el-form-item>
             </el-col>

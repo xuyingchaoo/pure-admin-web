@@ -2,11 +2,10 @@
  * @Author: xuyingchao
  * @Date: 2023-01-16 15:35:11
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-02-09 11:32:20
+ * @LastEditTime: 2023-02-10 16:42:21
  * @Descripttion:
  */
 import { isPhone } from "@pureadmin/utils";
-import { cloneDeep } from "@pureadmin/utils";
 export function useForm() {
   const formData = reactive({
     id: "",
@@ -38,11 +37,6 @@ export function useForm() {
     roleIdList: [{ required: true, message: "请选择角色", trigger: "blur" }]
   };
   const dataLoading = ref(false);
-  // 处理数据
-  const handleForm = (formData: any) => {
-    const form = cloneDeep(formData);
-    return form;
-  };
 
-  return { dataLoading, formData, rules, handleForm };
+  return { dataLoading, formData, rules };
 }

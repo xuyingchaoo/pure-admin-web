@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-10 14:52:11
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-02-09 11:26:49
+ * @LastEditTime: 2023-02-10 16:37:59
  * @Descripttion: 
 -->
 <script setup lang="ts">
@@ -68,14 +68,6 @@ onMounted(() => {
             <el-col class="details-row" :lg="8" :md="24">
               <label>联系方式</label>
               <div>{{ formData.mobile }}</div>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col class="details-row" :lg="8" :md="24">
-              <label>角色</label>
-              <div>
-                {{ formData.roleNameList ? formData.roleNameList[0] : "-" }}
-              </div>
             </el-col>
           </el-row>
         </div>

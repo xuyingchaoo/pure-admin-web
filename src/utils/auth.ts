@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-05 14:40:55
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-02-09 10:47:41
+ * @LastEditTime: 2023-02-10 17:01:22
  * @Descripttion:
  */
 import Cookies from "js-cookie";
@@ -79,16 +79,18 @@ export function setToken(data: DataInfo<Date>) {
 export function setTokenNew(data) {
   return new Promise(resolve => {
     const { token } = data;
-    const expire = new Date(data.expire).getTime();
-    const cookieString = JSON.stringify({ accessToken: token });
+    // const expires = new Date(data.expire).getTime();
+    const cookieString = JSON.stringify({
+      accessToken: token
+    });
     Cookies.set(TokenKey, cookieString);
     function setSessionKey(info: UserInfo) {
       useUserStoreHook().SET_USERNAME(info.username);
       useUserStoreHook().SET_USERINFO(info);
       storageSession().setItem(sessionKey, {
         username: info.username,
-        roles: info.roleIdList,
-        expire
+        roles: info.roleIdList
+        // expire
       });
     }
     if (token) {

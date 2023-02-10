@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-10 13:49:58
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-02-10 10:40:51
+ * @LastEditTime: 2023-02-10 16:32:29
  * @Descripttion:
  */
 import { useDataList } from "@/utils/data-list";
@@ -34,6 +34,11 @@ export function useColumns() {
     {
       label: "手机号",
       prop: "mobile"
+    },
+    {
+      label: "角色",
+      prop: "roleNameList",
+      cellRenderer: ({ row }) => <div>{row.roleNameList.toString()}</div>
     },
     {
       label: "状态",

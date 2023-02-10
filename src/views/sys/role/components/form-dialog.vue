@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-02-01 17:24:47
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-02-10 12:00:12
+ * @LastEditTime: 2023-02-10 15:26:02
  * @Descripttion: 
 -->
 <script setup lang="ts">
@@ -39,19 +39,31 @@ const rules = {
 };
 
 const emit = defineEmits(["update"]);
-
+const parentKeyId = ref([]);
+// 获取当前树形菜单的所有父节点
+// 半选中的节点 后台也需要接收 但前端初始化set选中的时候组件需要过滤掉
+function getParentKey(list) {
+  list.forEach(item => {
+    if (item.children && item.children.length > 0) {
+      parentKeyId.value.push(item.id);
+      getParentKey(item.children);
+    }
+  });
+}
 function openFormDialog(row) {
+  getParentKey(props.menuList);
   if (row) {
     getRoleDetails({ roleId: row.id }).then(res => {
-      console.log(res);
       const { id, name, menuIdList, remark } = res.data;
       formData.id = id;
       formData.name = name;
       formData.menuIdList = menuIdList;
       formData.remark = remark;
       nextTick(() => {
-        console.log(menuIdList);
-        menuTreeRef.value!.setCheckedKeys(menuIdList, false);
+        const data = menuIdList.filter(item => {
+          return parentKeyId.value.indexOf(item) == -1;
+        });
+        menuTreeRef.value!.setCheckedKeys(data, false);
       });
     });
   } else {
@@ -89,7 +101,7 @@ const handleForm = () => {
   const newMenuIdList = menuTreeRef.value!.getCheckedKeys(false);
   const halfIdList = menuTreeRef.value!.getHalfCheckedKeys();
   console.log("newMenuIdList", newMenuIdList, halfIdList);
-  formData.menuIdList = newMenuIdList;
+  formData.menuIdList = [...newMenuIdList, ...halfIdList];
   return formData;
 };
 const resetForm = (formEl: FormInstance | undefined) => {
