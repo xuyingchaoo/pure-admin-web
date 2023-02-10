@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-02-09 13:29:11
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-02-09 16:59:53
+ * @LastEditTime: 2023-02-10 11:49:03
  * @Descripttion:
  */
 import { http } from "@/utils/http";
@@ -25,4 +25,19 @@ export const doEditMenu = (data?: object) => {
 /** 菜单删除 */
 export const doDeleteMenu = (data?: any) => {
   return http.request<any>("delete", baseUrlApi("sys/menu/delete"), { data });
+};
+
+/** 角色详情 */
+export const getRoleDetails = (params?: object) => {
+  return http.request<any>("get", baseUrlApi("sys/role/info"), {
+    params
+  });
+};
+/** 角色新增 */
+export const doAddRole = (data?: object) => {
+  return http.request<any>("post", baseUrlApi("sys/role/create"), { data });
+};
+/** 角色修改 */
+export const doEditRole = (data?: object) => {
+  return http.request<any>("put", baseUrlApi("sys/role/update"), { data });
 };

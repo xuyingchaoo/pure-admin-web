@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-02-01 17:24:47
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-02-10 10:06:50
+ * @LastEditTime: 2023-02-10 10:51:41
  * @Descripttion: 
 -->
 <script setup lang="ts">
@@ -19,9 +19,8 @@ const menuParentId = ref();
 const formVisible = ref(false);
 const formData = reactive({
   id: "", // 菜单id
-  parentId: 0, // 父级菜单id 一级菜单默认0
-  title: "", // 菜单名称
-  icon: "", // 菜单图标
+  username: "", // 管理员姓名
+  status: "", // 菜单图标
   name: "", // 路由名称 必须唯一并且和当前路由component字段对应的页面里用defineOptions包起来的name保持一致
   path: "", // 路由地址
   component: "", // 路由组件地址
