@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-09 16:09:15
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-02-09 17:37:51
+ * @LastEditTime: 2023-02-10 17:36:46
  * @Descripttion: 
 -->
 <script setup lang="ts">
@@ -19,7 +19,7 @@ import AddFill from "@iconify-icons/ri/add-circle-line";
 import Filter from "@iconify-icons/ep/filter";
 import Download from "@iconify-icons/ep/download";
 import View from "@iconify-icons/ep/view";
-import { useColumns } from "./list";
+import { useColumns } from "./types/list";
 defineOptions({
   name: "TableInList"
 });

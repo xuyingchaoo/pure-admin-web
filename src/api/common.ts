@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-13 10:34:59
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-02-09 10:52:34
+ * @LastEditTime: 2023-02-13 10:18:22
  * @Descripttion:
  */
 import { http } from "@/utils/http";
@@ -22,9 +22,15 @@ export const doTableDelete = (data?: any) => {
   });
 };
 
-// 获取省市区级联
+// 获取省市区级联三级
 export const getAreaTree = (data?: any) => {
   return http.request<any>("get", baseUrlApi("sys/regions/tree"), {
+    params: data?.params
+  });
+};
+// 获取省市区级联四级 远程
+export const getAreaLazyTree = (data?: any) => {
+  return http.request<any>("get", baseUrlApi("sys/regions/list"), {
     params: data?.params
   });
 };

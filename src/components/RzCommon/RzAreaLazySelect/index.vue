@@ -1,5 +1,12 @@
+<!--
+ * @Author: xuyingchao
+ * @Date: 2023-01-28 10:15:59
+ * @LastEditors: xuyingchao
+ * @LastEditTime: 2023-02-13 10:30:11
+ * @Descripttion: 四级远程搜索地区组件
+-->
 <script lang="ts" setup>
-import { getAreaTree } from "@/api/common";
+import { getAreaLazyTree } from "@/api/common";
 const props = defineProps({
   placeholder: {
     require: false,
@@ -13,10 +20,28 @@ const props = defineProps({
 const value = ref();
 
 const optionProps = {
-  expandTrigger: "hover" as const,
+  // expandTrigger: "hover" as const,
   value: "id",
   label: "name",
-  children: "childList"
+  children: "childList",
+  lazy: true,
+  lazyLoad(node, resolve) {
+    const { data, level } = node;
+    if (level < 4) {
+      getAreaLazyTree({ pid: data ? data.id : "" }).then(res => {
+        if (res.code == 0) {
+          if (level == 3) {
+            res.data.map(item => {
+              item.leaf = true;
+            });
+          }
+          resolve(res.data);
+        }
+      });
+    } else {
+      resolve([]);
+    }
+  }
 };
 const options = ref([]);
 const emit = defineEmits(["update:areaIds"]);
@@ -31,7 +56,7 @@ defineExpose({
   init
 });
 onBeforeMount(() => {
-  getAreaTree().then(res => {
+  getAreaLazyTree().then(res => {
     if (res.code == 0) {
       options.value = res.data;
     }

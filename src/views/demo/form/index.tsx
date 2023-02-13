@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-16 15:35:11
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-02-06 16:31:41
+ * @LastEditTime: 2023-02-13 10:29:54
  * @Descripttion:
  */
 import { isPhone } from "@pureadmin/utils";
@@ -19,7 +19,8 @@ export function useForm() {
     content: "",
     videoUrl: [],
     fileUrl: [],
-    areaIds: []
+    areaIds: [],
+    areaLazyIds: []
   });
   const validatePhone = (rule: any, value: any, callback: any) => {
     if (isPhone(formData.mobile)) {
@@ -60,7 +61,6 @@ export function useForm() {
     const id = route.query?.id ? route.query?.id : "";
     if (id) {
       getUserDetails({ id }).then(res => {
-        console.log("initDetails ing");
         if (res.code == 0) {
           const { username, sex, mobile, roleIdList, id } = res.data;
           formData.id = id;

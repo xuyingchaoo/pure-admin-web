@@ -2,14 +2,16 @@
  * @Author: xuyingchao
  * @Date: 2023-01-05 14:40:55
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-02-10 17:01:22
+ * @LastEditTime: 2023-02-13 11:40:47
  * @Descripttion:
  */
 import Cookies from "js-cookie";
-import { storageSession, storageLocal } from "@pureadmin/utils";
+import { storageSession } from "@pureadmin/utils";
 import { useUserStoreHook } from "@/store/modules/user";
 import { getUserInfo } from "@/api/login";
-import { router } from "@/router";
+// import { router } from "@/router";
+import { useCommon } from "@/utils/rzCommon";
+const { timeFormat } = useCommon();
 
 export interface DataInfo<T> {
   /** token */
@@ -78,19 +80,22 @@ export function setToken(data: DataInfo<Date>) {
 // 当前token设置
 export function setTokenNew(data) {
   return new Promise(resolve => {
-    const { token } = data;
-    // const expires = new Date(data.expire).getTime();
-    const cookieString = JSON.stringify({
-      accessToken: token
-    });
+    const { token } = data,
+      currentTime = new Date().getTime() + data.expire * 1000,
+      expireTime = timeFormat("YYYY/mm/dd HH:MM:SS", new Date(currentTime)),
+      expires = new Date(expireTime).getTime(),
+      cookieString = JSON.stringify({
+        accessToken: token,
+        expires
+      });
     Cookies.set(TokenKey, cookieString);
     function setSessionKey(info: UserInfo) {
       useUserStoreHook().SET_USERNAME(info.username);
       useUserStoreHook().SET_USERINFO(info);
       storageSession().setItem(sessionKey, {
         username: info.username,
-        roles: info.roleIdList
-        // expire
+        roles: info.roleIdList,
+        expires
       });
     }
     if (token) {
@@ -115,10 +120,3 @@ export function removeToken() {
 export const formatToken = (token: string): string => {
   return "Bearer " + token;
 };
-
-export function clearAndOut() {
-  removeToken();
-  storageLocal().clear();
-  storageSession().clear();
-  router.push("/login");
-}

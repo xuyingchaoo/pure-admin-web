@@ -2,11 +2,11 @@
  * @Author: xuyingchao
  * @Date: 2023-01-09 16:09:15
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-02-10 16:42:41
+ * @LastEditTime: 2023-02-13 08:56:59
  * @Descripttion: 
 -->
 <script setup lang="ts">
-import { useForm } from "./edit";
+import { useForm } from "./types/edit";
 import { doAddUser, doEditUser } from "@/api/demo";
 import { message } from "@/utils/message";
 import { useCommon } from "@/utils/rzCommon";

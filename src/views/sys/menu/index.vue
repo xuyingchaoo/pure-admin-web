@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-02-09 11:59:00
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-02-10 16:27:10
+ * @LastEditTime: 2023-02-13 10:37:03
  * @Descripttion: 
 -->
 <script setup lang="ts">
@@ -91,7 +91,7 @@ onMounted(() => {
   <el-card>
     <rz-layout>
       <template #content>
-        <PureTableBar title="菜单管理">
+        <PureTableBar title="菜单管理" @refresh="getData">
           <template #buttons>
             <el-button
               type="primary"

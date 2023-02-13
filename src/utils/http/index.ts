@@ -11,7 +11,7 @@ import {
 } from "./types.d";
 import { stringify } from "qs";
 import NProgress from "../progress";
-import { getToken, formatToken, clearAndOut } from "@/utils/auth";
+import { getToken, formatToken } from "@/utils/auth";
 import { useUserStoreHook } from "@/store/modules/user";
 import { message } from "@/utils/message";
 
@@ -79,28 +79,34 @@ class PureHttp {
           ? config
           : new Promise(resolve => {
               const data = getToken();
-              console.log(data);
               if (data) {
                 const now = new Date().getTime();
                 const expired = parseInt(data.expires) - now <= 0;
                 if (expired) {
                   if (!PureHttp.isRefreshing) {
                     PureHttp.isRefreshing = true;
+                    // token过期
+                    message(`当前登录信息已过期，请重新登录！`, {
+                      type: "warning"
+                    });
+                    // 清空用户信息等 并且 退到登陆页
+                    useUserStoreHook().logOut();
+                    resolve(config);
                     // token过期刷新
-                    useUserStoreHook()
-                      .handRefreshToken({ refreshToken: data.refreshToken })
-                      .then(res => {
-                        const token = res.data.accessToken;
-                        // config.headers["Authorization"] = formatToken(token);
-                        config.headers["token"] = token;
-                        PureHttp.requests.forEach(cb => cb(token));
-                        PureHttp.requests = [];
-                      })
-                      .finally(() => {
-                        PureHttp.isRefreshing = false;
-                      });
+                    // useUserStoreHook()
+                    //   .handRefreshToken({ refreshToken: data.refreshToken })
+                    //   .then(res => {
+                    //     const token = res.data.accessToken;
+                    //     // config.headers["Authorization"] = formatToken(token);
+                    //     config.headers["token"] = token;
+                    //     PureHttp.requests.forEach(cb => cb(token));
+                    //     PureHttp.requests = [];
+                    //   })
+                    //   .finally(() => {
+                    //     PureHttp.isRefreshing = false;
+                    //   });
                   }
-                  resolve(PureHttp.retryOriginalRequest(config));
+                  // resolve(PureHttp.retryOriginalRequest(config));
                 } else {
                   // config.headers["Authorization"] = formatToken(
                   //   data.accessToken
@@ -178,7 +184,7 @@ class PureHttp {
               type: "warning"
             });
             // 清空用户信息等 并且 退到登陆页
-            clearAndOut();
+            useUserStoreHook().logOut();
             reject(response);
           } else {
             resolve(response);

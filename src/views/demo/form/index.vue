@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-09 16:09:15
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-02-09 11:06:37
+ * @LastEditTime: 2023-02-13 10:22:54
  * @Descripttion: 
 -->
 <script setup lang="ts">
@@ -100,13 +100,23 @@ onMounted(() => {
             </el-col>
             <el-col :lg="8" :md="24">
               <el-form-item label="地区" prop="areaIds">
-                <area-select
+                <rz-area-select
                   ref="areaSelectRef"
                   placeholder="请选择地区"
                   v-model:areaIds="formData.areaIds"
                 />
               </el-form-item>
             </el-col>
+            <el-col :lg="8" :md="24">
+              <el-form-item label="地区（远程）" prop="areaLazyIds">
+                <rz-area-lazy-select
+                  ref="areaLazySelectRef"
+                  placeholder="请选择地区（远程）"
+                  v-model:areaIds="formData.areaLazyIds"
+                />
+              </el-form-item>
+            </el-col>
+            <!-- RzAreaLazySelect -->
           </el-row>
           <el-row>
             <el-col :lg="8" :md="24">

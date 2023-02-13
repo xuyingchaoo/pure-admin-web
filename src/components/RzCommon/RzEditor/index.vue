@@ -34,7 +34,6 @@ const editorConfig: Partial<IEditorConfig> = {
 };
 const mode = "default";
 const handleCreated = editor => {
-  console.log(editor);
   editorRef.value = editor; // 记录 editor 实例，重要！
 };
 // 上传地址配置
@@ -138,6 +137,7 @@ defineExpose({
 <style lang="scss">
 .rz-editor {
   border: 1px solid #ccc;
+
   .w-e-text-placeholder {
     top: 10px;
   }

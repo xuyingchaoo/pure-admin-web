@@ -1,3 +1,10 @@
+/*
+ * @Author: xuyingchao
+ * @Date: 2023-01-09 15:06:15
+ * @LastEditors: xuyingchao
+ * @LastEditTime: 2023-02-13 09:01:37
+ * @Descripttion:
+ */
 import { removeToken, setToken, type DataInfo } from "./auth";
 import { subBefore, getQueryMap } from "@pureadmin/utils";
 

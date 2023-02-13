@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-01-09 16:09:15
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-02-09 11:30:46
+ * @LastEditTime: 2023-02-13 08:56:55
  * @Descripttion: 
 -->
 <script setup lang="ts">
@@ -19,7 +19,7 @@ import AddFill from "@iconify-icons/ri/add-circle-line";
 import Filter from "@iconify-icons/ep/filter";
 import Download from "@iconify-icons/ep/download";
 import View from "@iconify-icons/ep/view";
-import { useColumns } from "./index";
+import { useColumns } from "./types/index";
 import { useCommon } from "@/utils/rzCommon";
 defineOptions({
   name: "TableTagIndex"

@@ -2,39 +2,21 @@
  * @Author: xuyingchao
  * @Date: 2023-01-28 13:06:43
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-02-08 15:52:11
+ * @LastEditTime: 2023-02-13 11:35:18
  * @Descripttion:
  */
 import { useMultiTagsStoreHook } from "@/store/modules/multiTags";
 import { baseUrlApi } from "@/api/utils";
 import { getToken } from "@/utils/auth";
-// import { useRouter } from "vue-router";
 import { router } from "@/router";
-// interface routerInfo {
-//   /** path */
-//   path: string;
-//   /** tab名称 */
-//   name: string;
-//   /** 用户名 */
-//   query?: {};
-// }
+import { usePermissionStoreHook } from "@/store/modules/permission";
+
 export function useCommon() {
   const multiTags = computed(() => {
     return useMultiTagsStoreHook()?.multiTags;
   });
   // 打开新tag
   const handleRouter = (name, query) => {
-    // const { path, name, query } = info;
-    // useMultiTagsStoreHook().handleTags("push", {
-    //   path,
-    //   name,
-    //   query,
-    //   meta: {
-    //     title: name,
-    //     // 最大打开标签数
-    //     dynamicLevel: 1
-    //   }
-    // });
     // 路由跳转
     router.push({ name, query });
   };
@@ -57,6 +39,41 @@ export function useCommon() {
     }
     window.location.href = urls + paramsData.slice(0, paramsData.length - 1);
   }
+  /**
+   * 时间格式化方法
+   * params fmt(String)-格式 date(Date)-时间
+   * YYYY-mm-dd HH:MM:SS
+   */
+  function timeFormat(fmt, date = new Date()) {
+    let ret;
+    const opt = {
+      "Y+": date.getFullYear().toString(), // 年
+      "m+": (date.getMonth() + 1).toString(), // 月
+      "d+": date.getDate().toString(), // 日
+      "H+": date.getHours().toString(), // 时
+      "M+": date.getMinutes().toString(), // 分
+      "S+": date.getSeconds().toString() // 秒
+    };
+    for (const k in opt) {
+      ret = new RegExp("(" + k + ")").exec(fmt);
+      if (ret) {
+        fmt = fmt.replace(
+          ret[1],
+          ret[1].length == 1 ? opt[k] : opt[k].padStart(ret[1].length, "0")
+        );
+      }
+    }
+    return fmt;
+  }
 
-  return { handleRouter, handleCloseTag, downLoadExcel };
+  /**
+   * 是否有权限
+   * @param {*} key
+   */
+  function isAuth(key) {
+    const per = usePermissionStoreHook()?.permissions;
+    return per.indexOf(key) !== -1 || false;
+  }
+
+  return { handleRouter, handleCloseTag, downLoadExcel, timeFormat, isAuth };
 }

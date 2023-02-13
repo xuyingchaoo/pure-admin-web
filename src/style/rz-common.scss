@@ -1,16 +1,18 @@
 /* 轴屉式搜索s */
-.rz-drawer-form{
-    .el-form-item,.el-select{
-      width: 100%;
-      margin-right: 0 !important;
-    }
+.rz-drawer-form {
+  .el-form-item,
+  .el-select {
+    width: 100%;
+    margin-right: 0 !important;
+  }
 }
 /* 轴屉式搜索e */
 
 /* form表单三列布局 s */
-.rz-form{
+.rz-form {
   padding-bottom: 100px;
-  .el-form-item__label{
+  padding-right: 30px;
+  .el-form-item__label {
     font-weight: 700;
   }
   .el-form-item {
@@ -18,7 +20,7 @@
       width: 100%;
     }
 
-    .el-form-item__content>div {
+    .el-form-item__content > div {
       width: 100%;
     }
 
@@ -27,11 +29,11 @@
     }
   }
 }
-.rz-form-3{
+.rz-form-3 {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  .el-form-item{
+  .el-form-item {
     width: 33.33%;
     align-items: flex-start;
     padding-right: 20px;
@@ -40,7 +42,7 @@
 /* form表单三列布局 e */
 
 /* form表单底部按钮 s*/
-.btn-wrapper{
+.btn-wrapper {
   position: absolute;
   bottom: 0;
   background: white;
@@ -52,11 +54,11 @@
 /* form表单底部按钮 e */
 
 /* 详情页 s*/
-.rz-details{
-  .details-row{
+.rz-details {
+  .details-row {
     font-size: 14px;
     margin-bottom: 20px;
-    label{
+    label {
       display: inline-block;
       margin-bottom: 5px;
     }
@@ -65,37 +67,37 @@
 /* 详情页 e*/
 
 /* 编辑页/详情页 s*/
-.rz-page{
+.rz-page {
   position: absolute;
-  width:100%;
+  width: 100%;
   height: 100%;
 }
 /* 编辑页/详情页 e*/
 
 /* 表格 */
-.rz-table-heard{
-  th{
-    background-color: #fafafa !important
+.rz-table-heard {
+  th {
+    background-color: #fafafa !important;
   }
 }
 // 表格错误样式
-.error-row{
-  background-color: #FFEFEC !important;
-  td{
-    background-color: #FFEFEC !important;
+.error-row {
+  background-color: #ffefec !important;
+  td {
+    background-color: #ffefec !important;
   }
 }
 
 //暗黑模式下
-.dark{
-  .rz-layout .layout-btn{
+.dark {
+  .rz-layout .layout-btn {
     background: none;
   }
-  .rz-table-heard th{
-    background-color:var(--el-bg-color) !important;
+  .rz-table-heard th {
+    background-color: var(--el-bg-color) !important;
   }
   // WangEdit
-  .w-e-text-container{
+  .w-e-text-container {
     background: none;
   }
 }
