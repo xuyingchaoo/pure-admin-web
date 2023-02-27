@@ -1,3 +1,10 @@
+<!--
+ * @Author: xuyingchao
+ * @Date: 2023-01-09 15:06:15
+ * @LastEditors: xuyingchao
+ * @LastEditTime: 2023-02-27 16:53:12
+ * @Descripttion:
+-->
 <h1>vue-pure-admin精简版（非国际化版本）</h1>
 
 [![license](https://img.shields.io/github/license/xiaoxian521/vue-pure-admin.svg)](LICENSE)
@@ -61,3 +68,7 @@ pnpm remove 包名
 原则上不收取任何费用及版权，可以放心使用，不过如需二次开源（比如用此平台二次开发并开源）请联系作者获取许可！
 
 [MIT © xiaoxian521-2020](./LICENSE)
+
+## 提交跳过验证
+
+git commit -m '' --no-verify
