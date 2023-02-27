@@ -2,7 +2,7 @@
  * @Author: xuyingchao
  * @Date: 2023-02-09 11:59:00
  * @LastEditors: xuyingchao
- * @LastEditTime: 2023-02-13 10:37:03
+ * @LastEditTime: 2023-02-27 16:49:07
  * @Descripttion: 
 -->
 <script setup lang="ts">
@@ -65,7 +65,7 @@ const columns: TableColumnList = [
   }
 ];
 // 编辑
-function handleEdit(row, type) {
+function handleEdit(row: object, type: number) {
   // 0 新增 1修改本级菜单 2新增下级
   formDialog.value.openFormDialog(row, type);
 }
